@@ -2548,7 +2548,8 @@ if (document.getElementById('customerDirectorySearchBtn')) {
   });
 }
 wireAutofillOnPhone('calcCustomerPhone', 'calcCustomerName');
-document.getElementById('calcCustomerPhone').addEventListener('blur', showPreviousPurchasesForNewSale);
+const calcCustomerPhoneEl = document.getElementById('calcCustomerPhone');
+if (calcCustomerPhoneEl) calcCustomerPhoneEl.addEventListener('blur', showPreviousPurchasesForNewSale);
 wireAutofillOnPhone('orderPhone', 'orderName');
 function loadCustomerLedger() {
   let container = document.getElementById('customerLedgerContainer');
