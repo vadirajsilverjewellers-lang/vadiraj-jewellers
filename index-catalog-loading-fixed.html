@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vadiraj Jewellers - Customer Portal</title><script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script><script src="https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script><style>:root[data-theme="dark"]{--bg:#0a0a0a;--card:#141414;--gold:#d4af37;--gold-dark:#8b6508;--text:#ffffff;--muted:#999999;--border:#262626;--green:#2ecc71;--red:#e74c3c;--warning:#f1c40f;--input-bg:#141414;--header-bg:#1f1a0a;--item-bg:#181818;--tab-bg:#161616;--tab-active:#1c1c1c;}:root[data-theme="light"]{--bg:#f4f4f6;--card:#ffffff;--gold:#b8860b;--gold-dark:#654321;--text:#222222;--muted:#666666;--border:#dddddd;--green:#27ae60;--red:#c0392b;--warning:#d35400;--input-bg:#f9f9f9;--header-bg:#fdfaf0;--item-bg:#ffffff;--tab-bg:#e9e9eb;--tab-active:#ffffff;}*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif;}body{background-color:var(--bg);color:var(--text);display:flex;justify-content:center;padding:16px;min-height:100vh;}.wrap{width:100%;max-width:600px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,0.12);position:relative;}#blinkitLoader{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all;opacity:1;}.luxury-loader-ring{width:80px;height:80px;border:3px solid rgba(212,175,55,0.2);border-top:3px solid var(--gold);border-radius:50%;animation:luxurySpin 1s linear infinite;margin-bottom:24px;box-shadow:0 0 25px rgba(212,175,55,0.15);display:flex;align-items:center;justify-content:center;}.luxury-loader-inner{width:50px;height:50px;border:3px solid rgba(212,175,55,0.1);border-bottom:3px solid var(--gold);border-radius:50%;animation:luxurySpinReverse 0.7s linear infinite;}@keyframes luxurySpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}@keyframes luxurySpinReverse{0%{transform:rotate(0deg);}100%{transform:rotate(-360deg);}}.blinkit-brand{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}.blinkit-tagline{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}header{background:var(--header-bg);padding:16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}h1{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:1px;text-align:center;flex:1;user-select:none;}.theme-toggle-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:5px 10px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;}.tabs{display:flex;background:var(--tab-bg);border-bottom:1px solid var(--border);overflow-x:auto;}.tab-btn{flex:1;min-width:65px;padding:10px 4px;background:none;border:none;color:var(--muted);font-weight:bold;font-size:10px;cursor:pointer;white-space:nowrap;text-align:center;}.tab-btn.active{color:var(--gold);background:var(--tab-active);border-bottom:2px solid var(--gold);}.panel{display:none;padding:16px;background:var(--card);max-height:75vh;overflow-y:auto;}.panel.active{display:block;}.card{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}.input,select,textarea{width:100%;padding:10px;background:var(--input-bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;margin-top:4px;margin-bottom:12px;outline:none;}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;border:none;padding:12px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:6px;font-size:13px;}.btn-secondary{background:transparent;border:1px solid var(--gold);color:var(--gold);}.social-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px;}.social-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:6px;font-size:12px;font-weight:bold;text-decoration:none;color:#fff;border:none;cursor:pointer;text-align:center;}.social-whatsapp{background:#25D366;}.social-instagram{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);}.social-facebook{background:#1877F2;}.social-youtube{background:#FF0000;}.social-map{background:var(--gold);color:#000;grid-column:span 2;}.carousel-container{position:relative;width:100%;height:260px;background:#000;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:10px;display:flex;align-items:center;justify-content:center;touch-action:pan-y;}.carousel-track{display:flex;height:100%;width:100%;transition:transform 0.3s ease-in-out;}.carousel-slide{min-width:100%;width:100%;height:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#000;position:relative;}.carousel-slide img,.carousel-slide video{max-width:100%;max-height:100%;object-fit:contain;display:block;margin:auto;}.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);color:white;border:none;padding:10px 14px;cursor:pointer;font-size:16px;border-radius:4px;z-index:10;}.carousel-prev{left:8px;}.carousel-next{right:8px;}.carousel-dots{position:absolute;bottom:8px;width:100%;display:flex;justify-content:center;gap:5px;z-index:10;}.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;}.dot.active{background:var(--gold);}.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:bold;margin-top:4px;}.badge-verified{background:rgba(46,204,113,0.15);color:var(--green);border:1px solid var(--green);}.badge-pending{background:rgba(241,196,15,0.15);color:var(--warning);border:1px solid var(--warning);}.badge-rejected{background:rgba(231,76,60,0.15);color:var(--red);border:1px solid var(--red);}.expand-modal-bg{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:9999;justify-content:center;align-items:center;padding:16px;}.expand-modal-bg.active{display:flex;}.expand-modal-box{width:100%;max-width:420px;background:var(--card);border:1px solid var(--gold);border-radius:14px;padding:20px;text-align:center;position:relative;box-shadow:0 10px 40px rgba(0,0,0,0.5);}.close-modal{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;}.expand-img,.expand-video{width:100%;max-height:280px;object-fit:contain;border-radius:8px;border:1px solid var(--border);background:var(--input-bg);margin-bottom:10px;}.item-card{background:var(--item-bg);padding:10px;font-size:12px;border-radius:8px;border:1px solid var(--border);margin-bottom:10px;}#returnOverlay{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.9);z-index:10000;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center;}#tryOnModal.expand-modal-bg.active{display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:99999;padding:0;}#tryOnModal .expand-modal-box{width:100vw;height:100vh;max-width:none;background:transparent;border:none;border-radius:0;padding:12px;display:flex;flex-direction:column;box-shadow:none;}#tryOnWebcam{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);position:absolute;top:0;left:0;backface-visibility:hidden;z-index:1;}#tryOnLeftEarring,#tryOnRightEarring{position:absolute;pointer-events:none;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%) scaleX(-1);will-change:transform,left,top;z-index:5;}</style><style id="support-us-css">
+.support-card{background:linear-gradient(145deg,var(--input-bg),var(--card));border:1px solid rgba(212,175,55,.45);border-radius:14px;padding:18px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.support-title{color:var(--gold);font-size:18px;font-weight:800;margin-bottom:7px;}
+.support-subtitle{color:var(--muted);font-size:12px;line-height:1.55;margin-bottom:14px;}
+.support-amount{display:inline-flex;align-items:center;justify-content:center;padding:8px 16px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);font-weight:800;font-size:14px;margin-bottom:14px;background:rgba(212,175,55,.07);}
+.support-qr{width:190px;height:190px;margin:8px auto 14px;padding:10px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold);}
+.support-qr img,.support-qr canvas{max-width:100%;max-height:100%;display:block;}
+.support-upi{font-size:12px;color:var(--text);margin-bottom:10px;word-break:break-all;}
+.support-note{font-size:10px;color:var(--muted);margin-top:9px;}
+</style><style id="signin-css">
+#signInGate{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:99998;display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;}
+#signInGate.show{display:flex;}
+.signin-logo{font-size:17px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.signin-tagline{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:32px;}
+.google-signin-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#3c4043;border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;width:100%;max-width:280px;}
+.google-signin-btn:active{background:#f1f1f1;}
+.google-signin-btn svg{width:18px;height:18px;flex-shrink:0;}
+.signin-error{color:var(--red);font-size:11px;margin-top:14px;max-width:280px;}
+.signin-loading{color:var(--muted);font-size:11px;margin-top:14px;}
+#userBadge{display:none;align-items:center;gap:6px;cursor:pointer;position:relative;}
+#userBadge.show{display:flex;}
+#userBadge img{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--gold);}
+#userBadge .user-avatar-fallback{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--gold);background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+#userMenu{display:none;position:absolute;top:34px;right:0;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,0.25);z-index:100000;text-align:left;}
+#userMenu.show{display:block;}
+#userMenu .um-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;word-break:break-word;}
+#userMenu .um-email{font-size:10px;color:var(--muted);margin-bottom:10px;word-break:break-all;}
+#userMenu .um-signout{width:100%;background:transparent;border:1px solid var(--red);color:var(--red);padding:6px;border-radius:6px;font-size:11px;font-weight:bold;cursor:pointer;}
+</style>
+<style id="print-friendly-invoice-css">@media print{@page{size:A4 portrait;margin:8mm;}html,body{background:#fff !important;margin:0 !important;padding:0 !important;}body.print-invoice-mode > *:not(#invoiceTemplateContainer){display:none !important;}body.print-invoice-mode #invoiceTemplateContainer{display:block !important;position:static !important;width:100% !important;max-width:none !important;box-sizing:border-box !important;padding:8mm !important;margin:0 !important;background:#fff !important;color:#111 !important;overflow:visible !important;}body.print-invoice-mode #invoiceTemplateContainer *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}body.print-invoice-mode #invoiceTemplateContainer img{max-width:100% !important;break-inside:avoid;}body.print-invoice-mode #invoiceTemplateContainer > div{break-inside:avoid;}}</style>
+<style id="paid-delivery-stamp-css">
+/* Original Vadiraj Jewellers payment seal */
+.paid-delivery-stamp{
+  visibility:hidden;
+  opacity:0;
+  height:0;
+  overflow:hidden;
+  width:100%;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+.paid-delivery-stamp.show{
+  visibility:visible;
+  opacity:1;
+  height:204px;
+  margin:10px 0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+}
+.paid-delivery-stamp .vj-seal{
+  position:relative;
+  width:178px;
+  height:178px;
+  border-radius:50%;
+  box-sizing:border-box;
+  background:#fffdf7;
+  color:#174d3b;
+  border:3px solid #174d3b;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:
+    inset 0 0 0 5px #fffdf7,
+    inset 0 0 0 7px #174d3b;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.paid-delivery-stamp .vj-seal:before{
+  content:"VADIRAJ • JEWELLERS • 925";
+  position:absolute;
+  inset:11px;
+  border:1.3px solid #174d3b;
+  border-radius:50%;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:7px;
+  box-sizing:border-box;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:1.2px;
+  color:#174d3b;
+}
+.paid-delivery-stamp .vj-seal:after{
+  content:"✦  ✦  ✦  ✦  ✦";
+  position:absolute;
+  bottom:15px;
+  font-size:7px;
+  letter-spacing:2px;
+  color:#174d3b;
+}
+.paid-delivery-stamp .vj-emblem{
+  width:31px;
+  height:31px;
+  border-radius:50%;
+  background:#174d3b;
+  color:#fffdf7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;
+  font-weight:900;
+  z-index:3;
+  margin-top:5px;
+}
+.paid-delivery-stamp .vj-status{
+  margin-top:5px;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  z-index:3;
+}
+.paid-delivery-stamp .stamp-main{
+  margin:3px 0 1px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:1.3px;
+  z-index:3;
+}
+.paid-delivery-stamp .stamp-sub{
+  font-size:6.5px;
+  line-height:1.35;
+  font-weight:900;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+  z-index:3;
+}
+.paid-delivery-stamp .stamp-meta{
+  display:flex;
+  gap:9px;
+  margin-top:7px;
+  padding-top:5px;
+  border-top:1px solid rgba(23,77,59,.35);
+  font-size:5.8px;
+  color:#315e4e;
+  z-index:3;
+}
+@media print{
+  .paid-delivery-stamp .vj-seal{
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+}
+</style>
+
+<style id="support-payment-apps-css">
+.support-payment-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:12px;}
+.support-app-btn{display:flex;align-items:center;justify-content:center;min-height:46px;padding:12px 14px;border-radius:9px;text-decoration:none;color:#fff;font-size:12px;font-weight:800;border:1px solid rgba(255,255,255,.14);box-shadow:0 5px 14px rgba(0,0,0,.12);transition:transform .15s ease,filter .15s ease;}
+.support-app-btn:active{transform:scale(.98);filter:brightness(.95);}
+.support-phonepe{background:linear-gradient(135deg,#5f259f,#8e44ad);}
+.support-gpay{background:linear-gradient(135deg,#4285f4,#34a853);}
+.support-paytm{background:linear-gradient(135deg,#00baf2,#0077b5);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="blinkitLoader">
+    <div class="luxury-loader-ring">
+      <div class="luxury-loader-inner"></div>
+    </div>
+    <div class="blinkit-brand">Vadiraj Jewellers</div>
+    <div class="blinkit-tagline">Exquisite Craftsmanship</div>
+  </div>
+  <div id="signInGate">
+    <div class="signin-logo">Vadiraj Jewellers</div>
+    <div class="signin-tagline">Sign in to continue</div>
+    <button class="google-signin-btn" id="googleSignInBtn" type="button">
+      <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34 5.1 29.3 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.4-4.6 2.3-7.2 2.3-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.6 40.6 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.2 5.2C40.9 36 44 30.6 44 24c0-1.4-.1-2.3-.4-3.5z"/></svg>
+      Sign in with Google
+    </button>
+    <div class="signin-loading" id="signInLoading" style="display:none;">Signing in…</div>
+    <div class="signin-error" id="signInError" style="display:none;"></div>
+  </div>
+  <header>
+    <button class="theme-toggle-btn" id="themeToggleBtn" type="button">☀️ Light</button>
+    <h1>Vadiraj Jewellers</h1>
+    <div id="userBadge">
+      <img id="userBadgeImg" src="" alt="" style="display:none;" />
+      <div id="userBadgeFallback" class="user-avatar-fallback" style="display:none;"></div>
+      <div id="userMenu">
+        <div class="um-name" id="userMenuName"></div>
+        <div class="um-email" id="userMenuEmail"></div>
+        <button class="um-signout" id="userSignOutBtn" type="button">Sign out</button>
+      </div>
+    </div>
+  </header>
+  <div id="customerPortalWrapper">
+    <div class="tabs" id="customerTabsContainer">
+      <button class="tab-btn active" data-tab="custCatalogTab" type="button">Catalogue</button>
+      <button class="tab-btn" data-tab="custRatesTab" type="button">Rates</button>
+      <button class="tab-btn" data-tab="custCalcTab" type="button">Calculator</button>
+      <button class="tab-btn" data-tab="custPayTab" type="button">Pay</button>
+      <button class="tab-btn" data-tab="custLedgerTab" type="button">Ledger</button>
+      
+      <button class="tab-btn" data-tab="custBugTab" type="button">Support</button>
+    </div>
+    <div class="panel active" id="custCatalogTab">
+      <div style="font-size: 13px; color: var(--gold); font-weight: bold; margin-bottom: 10px;">💍 Vadiraj Live Catalogue (Photos & Videos)</div>
+      <div class="card" style="padding: 10px; margin-bottom: 12px;">
+        <input type="text" id="catalogSearchInput" class="input" placeholder="🔍 Search jewellery..." style="margin-bottom: 8px;" />
+        <div class="row" style="gap: 6px; margin-bottom: 0;">
+          <select id="catalogPurityFilter" class="input" style="margin-bottom: 0;">
+            <option value="">All Purities</option>
+            <option value="24K">24K Gold</option>
+            <option value="22K">22K Gold</option>
+            <option value="20K">20K Gold</option>
+            <option value="18K">18K Gold</option>
+            <option value="Silver">Fine Silver</option>
+            <option value="925 Silver">925 Silver</option>
+          </select>
+          <select id="catalogSortFilter" class="input" style="margin-bottom: 0;">
+            <option value="newest">Newest First</option>
+            <option value="price_low">Price: Low to High</option>
+            <option value="price_high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+      <div id="customerCatalogContainer">
+        <div class="catalog-loading-state" style="font-size:13px;color:var(--muted);text-align:center;padding:28px;">⏳ loading ⏳<br><span style="font-size:10px;opacity:.75;">Loading live catalogue…</span></div>
+      </div>
+    </div>
+    <div class="panel" id="custRatesTab">
+      <div style="font-size: 13px; color: var(--gold); font-weight: bold; margin-bottom: 10px;">Live Market Rates (Davanagere)</div>
+      <div class="card">
+        <label style="font-size:11px; color:var(--muted)">24K Gold Price</label>
+        <div class="row">
+          <input type="text" id="live24kRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="live24kPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+        <label style="font-size:11px; color:var(--muted)">22K Gold Price</label>
+        <div class="row">
+          <input type="text" id="live22kRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="live22kPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+        <label style="font-size:11px; color:var(--muted)">20K Gold Price</label>
+        <div class="row">
+          <input type="text" id="live20kRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="live20kPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+        <label style="font-size:11px; color:var(--muted)">18K Gold Price</label>
+        <div class="row">
+          <input type="text" id="live18kRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="live18kPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+        <label style="font-size:11px; color:var(--muted)">Fine Silver Price</label>
+        <div class="row">
+          <input type="text" id="liveSilverRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="liveSilverPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+        <label style="font-size:11px; color:var(--muted)">925 Silver Price</label>
+        <div class="row">
+          <input type="text" id="live925SilverRate" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+          <input type="text" id="live925SilverPerGram" class="input" value="Fetching..." readonly style="font-weight:bold; color:var(--gold);">
+        </div>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <div style="font-size: 12px; color: var(--gold); font-weight: bold; margin-bottom: 8px; text-align: center;">Connect With Vadiraj Jewellers</div>
+        <div class="social-grid">
+          <a href="https://wa.me/919591828446" target="_blank" class="social-btn social-whatsapp">💬 WhatsApp</a>
+          <a href="https://www.instagram.com/vadiraj_jewellers_davangere?igsh=Z3l0dzhhejMxdDBj" target="_blank" class="social-btn social-instagram">📷 Instagram</a>
+          <a href="https://www.facebook.com/share/196fway57g/" target="_blank" class="social-btn social-facebook">📘 Facebook</a>
+          <a href="https://www.youtube.com/results?search_query=Vadiraj+Jewellers+Davangere" target="_blank" class="social-btn social-youtube">▶️ YouTube</a>
+          <a href="https://maps.google.com/?q=Vadiraj+Jewellers+Davanagere" target="_blank" class="social-btn social-map">📍 Store Location Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="custCalcTab">
+      <div style="font-size:13px;color:var(--gold);font-weight:bold;margin-bottom:10px;">🧮 Jewellery Price Calculator</div>
+      <div class="card">
+        <label style="font-size:11px;color:var(--muted)">Select Purity</label>
+        <select id="calcPurity" class="input">
+          <option value="24K">24K Gold</option>
+          <option value="22K" selected>22K Gold</option>
+          <option value="20K">20K Gold</option>
+          <option value="18K">18K Gold</option>
+          <option value="Silver">Fine Silver</option>
+          <option value="925 Silver">925 Silver</option>
+        </select>
+        <label style="font-size:11px;color:var(--muted)">Net Weight (grams)</label>
+        <input type="number" id="calcWeight" class="input" value="10" min="0" step="0.1">
+        <div class="row">
+          <div>
+            <label style="font-size:11px;color:var(--muted)">Wastage (%)</label>
+            <input type="number" id="calcWastage" class="input" value="8" min="0" step="0.5">
+          </div>
+          <div>
+            <label style="font-size:11px;color:var(--muted)">Making Charges (₹/g)</label>
+            <input type="number" id="calcMaking" class="input" value="250" min="0" step="10">
+          </div>
+        </div>
+        <div style="background:var(--item-bg);padding:12px;border-radius:8px;border:1px solid var(--border);margin-top:10px;text-align:center;">
+          <div style="font-size:11px;color:var(--muted)">Market Unit Rate / Gram</div>
+          <div id="calcUnitRateDisplay" style="font-size:14px;font-weight:bold;color:var(--text);margin-bottom:8px;">₹0 / g</div>
+          <div style="font-size:11px;color:var(--muted)">Estimated Total (Incl. 3% GST)</div>
+          <div id="calcResult" style="font-size:20px;font-weight:bold;color:var(--gold);">₹0</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="custPayTab">
+      <div style="font-size: 13px; color: var(--gold); font-weight: bold; margin-bottom: 10px;">💳 UPI Payment & Order Form</div>
+      <div class="card">
+        <div id="selectedVariantPreviewBox" style="display:none; background:var(--item-bg); border:1px solid var(--gold); border-radius:8px; padding:10px; margin-bottom:12px; text-align:center;">
+          <div style="font-size:11px; color:var(--gold); font-weight:bold; margin-bottom:6px;">🎯 Selected Variation / Design:</div>
+          <div id="selectedVariantMediaContainer" style="max-height:140px; margin-bottom:6px; display:flex; justify-content:center;"></div>
+          <div id="selectedVariantName" style="font-size:12px; font-weight:bold; color:var(--text);"></div>
+        </div>
+        <label style="font-size:11px; color:var(--muted)">Your Full Name *</label>
+        <input type="text" id="orderName" class="input" placeholder="e.g. Ramesh Kumar">
+        <label style="font-size:11px; color:var(--muted)">Phone Number *</label>
+        <input type="tel" id="orderPhone" class="input" placeholder="e.g. 9876543210">
+        <label style="font-size:11px; color:var(--muted)">Delivery Address / Store Pickup *</label>
+        <textarea id="orderAddress" class="input" rows="3" placeholder="Enter your full shipping address..."></textarea>
+        <label style="font-size:11px; color:var(--muted)">Pin Code *</label>
+        <input type="text" id="orderPincode" class="input" placeholder="e.g. 577001" maxlength="6">
+        <label style="font-size:11px; color:var(--muted)">Select Purpose *</label>
+        <select id="orderType" class="input">
+          <option value="Jewellery Order">Jewellery Order</option>
+          <option value="Gold Saving Scheme">Gold Saving Scheme Deposit</option>
+        </select>
+        <label style="font-size:11px; color:var(--muted)">Item Description / Scheme Plan</label>
+        <input type="text" id="orderItemDesc" class="input" placeholder="e.g. 18K Item">
+        <div class="row">
+          <div>
+            <label style="font-size:11px; color:var(--muted)">Total Amount (₹)</label>
+            <input type="number" id="orderTotal" class="input" placeholder="50000">
+          </div>
+          <div>
+            <label style="font-size:11px; color:var(--muted)">Amount Paying Now (₹)</label>
+            <input type="number" id="orderPaid" class="input" placeholder="10000">
+          </div>
+        </div>
+        <div style="text-align:center; margin: 10px 0;">
+          <div style="font-size:11px; color:var(--gold); margin-bottom:6px;">Choose payment app (UPI: raikar.arpitha@ybl):</div>
+          
+          <div id="orderPaymentApps" style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 4px;">
+            <a id="orderPhonePeBtn" href="#" class="btn" style="text-decoration:none;background:#5f259f;padding:10px 5px;font-size:11px;margin:0;">🟣 PhonePe</a>
+            <a id="orderGooglePayBtn" href="#" class="btn" style="text-decoration:none;background:#1a73e8;padding:10px 5px;font-size:11px;margin:0;">🔵 Google Pay</a>
+            <a id="orderPaytmBtn" href="#" class="btn" style="text-decoration:none;background:#00a6e6;padding:10px 5px;font-size:11px;margin:0;">💙 Paytm</a>
+          </div>
+          <div style="font-size:10px;color:var(--muted);margin-top:5px;">Tap a payment app to pay the exact Amount Paying Now.</div>
+        </div>
+        <label style="font-size:11px; color:var(--muted)">Upload Payment Screenshot (Auto-extracts UTR) *</label>
+        <input type="file" id="orderScreenshotFile" class="input" accept="image/*" style="padding:6px;">
+        <label style="font-size:11px; color:var(--muted)">Scanned UPI Transaction ID (UTR)</label>
+        <input type="text" id="orderUtr" class="input" placeholder="Auto-filled via OCR or type manually">
+        <button class="btn" id="submitOrderBtn" type="button">Submit Order & Payment Receipt</button>
+      </div>
+    </div>
+    <div class="panel" id="custLedgerTab">
+      <div style="font-size: 13px; color: var(--gold); font-weight: bold; margin-bottom: 10px;">📋 My Orders & Ledger</div>
+      <div id="customerLedgerContainer"><div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No past orders found.</div></div>
+    </div>
+    <div class="panel" id="custInvoiceSearchTab">
+      <div style="font-size: 13px; color: var(--gold); font-weight: bold; margin-bottom: 10px;">🔎 Search Invoice by Number</div>
+      <div class="card">
+        <label style="font-size:11px; color:var(--muted)">Invoice Number</label>
+        <input type="text" id="invoiceSearchInput" class="input" placeholder="e.g. INV-482913" style="text-transform:uppercase;">
+        <button class="btn" id="invoiceSearchBtn" type="button">Search Invoice</button>
+      </div>
+      <div id="invoiceSearchResultContainer"><div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Enter an invoice number above to look it up.</div></div>
+    </div>
+    <div class="panel" id="custBugTab">
+      <div class="support-card">
+        <div class="support-title">❤️ Support Us</div>
+        <div class="support-subtitle">Help us make this app great! Your support helps us improve the app and add more useful features.</div>
+        <div class="support-amount">₹20 only</div>
+        <div class="support-subtitle" style="margin-top:-4px;">Choose your preferred payment app</div>
+        <div id="supportQrCode" class="support-qr" style="display:none" aria-label="₹20 support payment QR code"></div>
+        <div class="support-upi"><strong>UPI ID:</strong> raikar.arpitha@ybl</div>
+        <div class="support-payment-grid">
+          <a id="supportPhonePeBtn" class="support-app-btn support-phonepe" href="phonepe://pay?pa=raikar.arpitha@ybl&amp;pn=Vadiraj%20Jewellers&amp;am=20.00&amp;cu=INR&amp;tn=Support%20Vadiraj%20Jewellers%20App">🟣 PhonePe — Pay ₹20</a>
+          <a id="supportGooglePayBtn" class="support-app-btn support-gpay" href="tez://upi/pay?pa=raikar.arpitha@ybl&amp;pn=Vadiraj%20Jewellers&amp;am=20.00&amp;cu=INR&amp;tn=Support%20Vadiraj%20Jewellers%20App">🔵 Google Pay — Pay ₹20</a>
+          <a id="supportPaytmBtn" class="support-app-btn support-paytm" href="paytmmp://pay?pa=raikar.arpitha@ybl&amp;pn=Vadiraj%20Jewellers&amp;am=20.00&amp;cu=INR&amp;tn=Support%20Vadiraj%20Jewellers%20App">💙 Paytm — Pay ₹20</a>
+        </div>
+        <div class="support-note">All payment buttons are fixed to ₹20. If an app does not open, scan the QR code or use another payment app.</div>
+
+        <div class="support-bug-card" style="margin-top:18px;padding:16px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.03);">
+          <div style="font-size:16px;font-weight:800;color:var(--gold);margin-bottom:6px;">🐛 Report a Bug</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Found something not working? Tell us and we'll check it.</div>
+          <input id="bugContact" class="input" type="text" placeholder="Phone / Email (optional)" autocomplete="off">
+          <textarea id="bugDesc" class="input" rows="4" placeholder="Describe the bug or problem..." style="resize:vertical;margin-top:8px;"></textarea>
+          <button id="submitBugBtn" class="btn" type="button" style="margin-top:10px;width:100%;">🐛 Report Bug</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="invoiceTemplateContainer" style="display: none; width: 700px; background: #ffffff; color: #111111; padding: 40px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  <div style="border-bottom: 3px solid #b8860b; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-start;">
+    <div>
+      <h1 style="color: #b8860b; margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px;">Vadiraj Jewellers</h1>
+      <p style="font-size: 12px; color: #555; margin: 6px 0 0 0; line-height: 1.4;">Davanagere, Karnataka | Hallmarked Jewellery Specialists<br>Ph: +91 95918 28446 | Email: vadiaraikar@gmail.com</p>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-size: 16px; font-weight: bold; color: #222; letter-spacing: 0.5px;">TAX ESTIMATE / INVOICE</div>
+      <div id="invNumber" style="font-size: 12px; color: #666; margin-top: 4px;">INV-2026-001</div>
+      <div id="invDate" style="font-size: 12px; color: #666;">Date: 22/08/2026</div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; font-size: 13px;">
+    <div style="background: #fdfaf0; padding: 14px; border-radius: 8px; border: 1px solid #e6d5a7;">
+      <b style="color: #b8860b; display: block; margin-bottom: 6px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">Billed To:</b>
+      <div id="invCustName" style="font-weight: bold; color: #222; font-size: 14px;">Ramesh Kumar</div>
+      <div id="invCustPhone" style="color: #555; margin-top: 3px;">9876543210</div>
+    </div>
+    <div style="background: #fdfaf0; padding: 14px; border-radius: 8px; border: 1px solid #e6d5a7;">
+      <b style="color: #b8860b; display: block; margin-bottom: 6px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">Store Details:</b>
+      <div style="font-weight: bold; color: #222; font-size: 14px;">Vadiraj Jewellers</div>
+      <div style="color: #555; margin-top: 3px;">Davanagere, Karnataka</div>
+    </div>
+  </div>
+  <div id="invItemPhotoBox" style="display:none; margin-bottom:20px; padding:12px; border:1px solid #e6d5a7; border-radius:8px; background:#fdfaf0; text-align:center;">
+    <div style="font-size:11px; font-weight:bold; color:#b8860b; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Item Photo</div>
+    <img id="invItemPhoto" src="" alt="Item Photo" style="display:block; margin:0 auto; width:auto; max-width:240px; max-height:220px; object-fit:contain; border-radius:6px;">
+  </div>
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 13px;">
+    <thead>
+      <tr style="background: #b8860b; color: #ffffff; text-align: left;">
+        <th style="padding: 10px 12px; border-top-left-radius: 6px;">Item Description</th>
+        <th style="padding: 10px 12px;">Purity</th>
+        <th style="padding: 10px 12px; text-align: right;">Weight</th>
+        <th style="padding: 10px 12px; text-align: right;">Rate / g</th>
+        <th style="padding: 10px 12px; text-align: right; border-top-right-radius: 6px;">Total (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #eee;">
+        <td id="invItemDesc" style="padding: 12px; color: #333; font-weight: 500;">22K Gold Necklace</td>
+        <td id="invPurity" style="padding: 12px; color: #333;">22K</td>
+        <td id="invWeight" style="padding: 12px; text-align: right; color: #333;">10.0 g</td>
+        <td id="invRatePerGram" style="padding: 12px; text-align: right; color: #333;">₹7,200</td>
+        <td id="invItemTotal" style="padding: 12px; text-align: right; font-weight: bold; color: #222;">₹75,000</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="background: #fdfaf0; border: 1px solid #e6d5a7; padding: 16px; border-radius: 8px; margin-bottom: 25px; font-size: 12px;">
+    <b style="color: #b8860b; display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">Detailed Breakdown:</b>
+    <div style="display: flex; justify-content: space-between; padding: 3px 0; color: #444;"><span>Wastage Percentage Applied:</span> <span id="invWastageDisplay" style="font-weight: 500;">8%</span></div>
+    <div style="display: flex; justify-content: space-between; padding: 3px 0; color: #444;"><span>Making Charges Applied:</span> <span id="invMakingDisplay" style="font-weight: 500;">₹250 / g</span></div>
+  </div>
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
+    <div style="width: 320px; font-size: 13px;">
+      <div style="display: flex; justify-content: space-between; padding: 5px 0; color: #555;"><span>Base Metal Value:</span> <span id="invBaseValue">₹72,000</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 5px 0; color: #555;"><span>Wastage & Making Additions:</span> <span id="invAdditions">₹3,000</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 6px 0; border-top: 1px solid #ddd; color: #333; font-weight: 500;"><span>Subtotal:</span> <span id="invSubtotal">₹75,000</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 5px 0; color: #555;"><span>GST (3%):</span> <span id="invGst">₹2,250</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 2px solid #b8860b; font-weight: bold; font-size: 15px; color: #b8860b; margin-top: 4px;"><span>Grand Total:</span> <span id="invGrandTotal">₹77,250</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 5px 0; color: #555; margin-top: 6px;"><span>Advance Paid:</span> <span id="invAdvancePaid">₹0</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 2px solid #c0392b; font-weight: bold; font-size: 15px; color: #c0392b; margin-top: 4px;"><span>Balance Due:</span> <span id="invBalanceDue">₹77,250</span></div>
+    </div>
+  </div>
+  <div id="invPaidDeliveryStamp" class="paid-delivery-stamp" aria-label="Vadiraj Jewellers original payment confirmation seal">
+    <div class="vj-seal">
+      <div class="vj-emblem">VJ</div>
+      <div class="vj-status">PAYMENT VERIFIED</div>
+      <div class="stamp-main">PAID IN FULL</div>
+      <div class="stamp-sub">DELIVERY AUTHORIZED<br>ZERO BALANCE</div>
+      <div class="stamp-meta">
+        <span id="invStampInvoice">INV-000000</span>
+        <span id="invStampDate">--/--/----</span>
+      </div>
+    </div>
+  </div>
+  <div style="border: 1px solid #c0392b; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 10.5px; color: #444; line-height: 1.55;">
+    <div style="text-align:center; font-weight:bold; color:#c0392b; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:6px;">ನಿಯಮ ಹಾಗೂ ನಿಬಂಧನೆಗಳು / Terms &amp; Conditions</div>
+    <ul style="margin:0 0 8px 16px; padding:0;">
+      <li style="margin-bottom:4px;">ಖರೀದಿ ಮಾಡಿರುವ ಚಿನ್ನ ಹಾಗೂ ಬೆಳ್ಳಿಯ ವಸ್ತುವಿನ ತೂಕ, ಡಿಸೈನ್, ಸೀಲ್, ಹಾಲ್‌ಮಾರ್ಕ್ ಹಾಗೂ ಪರಿಶುದ್ಧತೆಯನ್ನು ಬಿಲ್ ಮತ್ತು ವಸ್ತುವಿನ ಮೇಲೆ ನಮೂದಿಸಿರುವುದನ್ನು ಗಮನಿಸಿ.</li>
+      <li style="margin-bottom:4px;">ಒಮ್ಮೆ ಮಾರಾಟ ಮಾಡಿದ ಅಥವಾ ಆರ್ಡರ್ ಕೊಟ್ಟಿರುವ ವಸ್ತುವನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ, ರದ್ದುಪಡಿಸುವುದಿಲ್ಲ ಅಥವಾ ಹಣ ವಾಪಾಸ್ಸು ಕೊಡುವುದಿಲ್ಲ.</li>
+      <li style="margin-bottom:4px;">ಬೆಳ್ಳಿ ಅಥವಾ ಬಂಗಾರದ ಒಡವೆ/ವಸ್ತುಗಳು ಮುರಿಯುವುದಕ್ಕೆ, ಹರಳು ಮುತ್ತುಗಳು ಬೀಳುವುದಕ್ಕೆ, ಹೊಳಪು ಕಡಿಮೆ ಆಗುವುದಕ್ಕೆ ಮತ್ತು ರೋಡಿಯಂ ಪಾಲಿಶ್, ಎನಾಮಲ್ ಬಣ್ಣ ಹೋಗುವುದಕ್ಕೆ, ಆಕ್ಸಿಡೇಶನ್ ಕಾರಣವಾಗಿ ಕಪ್ಪಾಗುವುದಕ್ಕೆ ನಾವು ಜವಾಬ್ದಾರರಲ್ಲ. ಇದು ವಸ್ತುವಿನ ಪರಿಶುದ್ಧತೆಗೆ ಸಂಬಂಧಿಲ್ಲ. ಈ ರೀತಿಯ ವಸ್ತುವನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ, ಇದರ ಹಣ ವಾಪಾಸು ನೀಡುವುದಿಲ್ಲ. ಗ್ರಾಹಕರು ಈ ರೀತಿಯ ವಸ್ತುವನ್ನು ಸರಿಪಡಿಸಬೇಕಾಗುವ ಮಜೂರಿಯನ್ನು ಪಾವತಿಸಿದರೆ ಸಾಧ್ಯವಾದಲ್ಲಿ ಸರಿಪಡಿಸಿ ಕೊಡುತ್ತೇವೆ.</li>
+      <li style="margin-bottom:4px;">ಬಂಗಾರದ ಆಭರಣಗಳಿಗೆ ಪಾದರಸ (Mercury) ಪರೋಕ್ಷವಾಗಿ (ಔಷಧ, ಗೊಬ್ಬರ, ಮೇಕಪ್ ವಸ್ತುಗಳು, ಮುಲಾಮು ಇತ್ಯಾದಿ) ಸಂಪರ್ಕಕ್ಕೆ ಬಂದಾಗ ಆ ಭಾಗವು ಬೆಳ್ಳಗಾಗುತ್ತದೆ. ಇದು ಬಂಗಾರದ ಪರಿಶುದ್ಧತೆಗೆ ಸಂಬಂಧಿಲ್ಲ. ಇಂತಹ ಆಭರಣಗಳನ್ನು ನಮ್ಮಲ್ಲಿ ಕೊಡಲೇ ತಂದು ಸಂಬಂಧಿಸಿದ ಮಜೂರಿ ಪಾವತಿಸಿ ಸರಿಪಡಿಸಿಕೊಳ್ಳಿ.</li>
+      <li style="margin-bottom:4px;">ರನ್ನಿಂಗ್ ರೇಟ್ ಆರ್ಡರ್ ಕೊಟ್ಟಾಗ ಜಮಾ ಮಾಡಿದ ಹಣಕ್ಕೆ ಮಾತ್ರ ಅಂದಿನ ದರ, ಉಳಿದದ್ದಕ್ಕೆ ಡೆಲಿವರಿ ತೆಗೆದುಕೊಳ್ಳುವಾಗ ಚಾಲ್ತಿಯಲ್ಲಿರುವ ದರದಂತೆ ಪಾವತಿಸಬೇಕು.</li>
+      <li style="margin-bottom:4px;">ಫಿಕ್ಸ್ಡ್ ರೇಟ್ ಆರ್ಡರ್ ಕೊಟ್ಟಾಗ ಡೆಲಿವರಿ ತೆಗೆದುಕೊಳ್ಳುವಾಗ ಯಾವುದೇ ದರ ಇದ್ದರೂ ಮೊದಲೇ ನಿಗದಿಪಡಿಸಿದ ದರದಂತೆ ಬಿಲ್ ಮಾಡಲಾಗುವುದು.</li>
+      <li style="margin-bottom:4px;">ಆರ್ಡರ್ ಅಥವಾ ರಿಪೇರಿಗೆ ಕೊಟ್ಟ ವಸ್ತುಗಳು ಕೆಲವೊಮ್ಮೆ ನಮ್ಮ ಕೈಮೀರಿ ಅನಿವಾರ್ಯ ಕಾರಣಗಳಿಂದ ತಡವಾಗುವ ಸಂಭವವಿರುತ್ತದೆ.</li>
+      <li>ಆರ್ಡರ್/ರಿಪೇರಿಗೆ ಕೊಟ್ಟ ವಸ್ತುವನ್ನು ಹೇಳಿದ ಡೆಲಿವರಿ ದಿನಾಂಕದಿಂದ 60 ದಿನಗಳ ಒಳಗೆ ಕಡ್ಡಾಯವಾಗಿ ತೆಗೆದುಕೊಳ್ಳಬೇಕು.</li>
+    </ul>
+    <ul style="margin:8px 0 0 16px; padding:0; border-top:1px solid #eee; padding-top:8px;">
+      <li style="margin-bottom:4px;">Cheques, Drafts, NEFT/RTGS/IMPS/Online Payment/Mobile/Wallet/Card Payments etc., are subject to realisation.</li>
+      <li style="margin-bottom:4px;">M.C. &amp; Miscellaneous charges includes stones, beads, making charges &amp; any other related charges.</li>
+      <li style="margin-bottom:4px;">Resale/buy back of Gold/Silver items, is subjected to purity &amp; prevailing market rate of that day after removing stones, beads, enamel, wax, dirt, dust etc from items. Original Invoice will be required to confirm purity. In case purity can't be ascertained (even if Invoice is there of other shop) then Computer laser analysis / Melting Report will be done to confirm purity. Payment above Rs. 10,000 will be given in Banking Mode.</li>
+      <li style="margin-bottom:4px;">Vadiraj Jewellers deals in only Mandatory Hallmarked Gold/Silver ornaments / Articles as per Govt. of India &amp; BIS - Rules, Regulations and Guidelines.</li>
+      <li style="margin-bottom:4px;">Due to softness &amp; high purity of 916 HM items, we are not responsible for its breakages, durability &amp; frequently accuring problems relating to it.</li>
+      <li>All Disputes subjected to Davanagere Jurisdiction only.</li>
+    </ul>
+  </div>
+  <div style="border-top: 1px solid #ddd; padding-top: 20px; font-size: 11px; color: #777; text-align: center; line-height: 1.5;">
+    Thank you for choosing Vadiraj Jewellers! All rates are calculated according to live bullion market standards.<br><b>Hallmarked Certified Jewellery</b>
+  </div>
+</div>
+<div class="expand-modal-bg" id="invoicePreviewModal" style="align-items: flex-start; overflow-y: auto; padding: 24px 8px;">
+  <div class="expand-modal-box" style="max-width: 720px; padding: 12px; text-align: left;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="font-size: 14px; font-weight: bold; color: var(--gold);">📄 Invoice Preview</div>
+      <button class="close-modal" id="closeInvoicePreviewBtn" style="position: static; color: var(--muted); font-size: 20px;" type="button">✕</button>
+    </div>
+    <div id="invoicePreviewViewport" style="width: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: #fff;">
+      <div id="invoicePreviewClone" style="width: 700px;"></div>
+    </div>
+    <div class="row" style="margin-top: 12px; gap: 8px;">
+      <button class="btn btn-secondary" id="editInvoiceDetailsBtn" type="button">✏️ Edit Details</button>
+      <button class="btn" id="confirmDownloadInvoiceBtn" type="button">🖨️ Print / Save PDF</button>
+    </div>
+  </div>
+</div>
+<div class="expand-modal-bg" id="tryOnModal">
+  <div class="expand-modal-box">
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.7); padding: 10px 14px; border-radius: 8px; margin-bottom: 6px; z-index: 10;">
+      <div>
+        <div style="font-size: 14px; font-weight: bold; color: var(--gold);" id="tryOnStudioHeader">✨ AI Live Tracking Studio</div>
+        <div id="tryOnItemTitle" style="font-size: 11px; color: #ccc;"></div>
+      </div>
+      <button class="close-modal" id="closeTryOnModalBtn" style="position: static; color: white; font-size: 20px;" type="button">✕</button>
+    </div>
+    <div style="background: rgba(0,0,0,0.7); padding: 8px; border-radius: 8px; margin-bottom: 6px; z-index: 10; display:flex; gap:8px;">
+      <div style="flex:1;">
+        <label style="font-size: 10px; color: var(--muted); display: block; margin-bottom: 2px;">Category Type:</label>
+        <select id="tryOnCategorySelect" class="input" style="margin-bottom: 0; background: #141414; color: var(--gold);">
+          <option value="Earrings">Earrings</option>
+          <option value="Necklace">Necklace</option>
+          <option value="Watch">Watch</option>
+          <option value="Ring / Bracelet">Ring / Bracelet</option>
+        </select>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
+        <label style="font-size: 10px; color: var(--gold); display: block; margin-bottom: 2px;">Fine-Tune Position:</label>
+        <div style="display:flex; gap:4px;">
+          <button class="btn btn-secondary" type="button" style="padding:4px 8px; font-size:11px; margin-top:0;" onclick="nudgeOffset(0, -10)">⬆️</button>
+          <button class="btn btn-secondary" type="button" style="padding:4px 8px; font-size:11px; margin-top:0;" onclick="nudgeOffset(0, 10)">⬇️</button>
+          <button class="btn btn-secondary" type="button" style="padding:4px 8px; font-size:11px; margin-top:0;" onclick="nudgeOffset(-10, 0)">⬅️</button>
+          <button class="btn btn-secondary" type="button" style="padding:4px 8px; font-size:11px; margin-top:0;" onclick="nudgeOffset(10, 0)">➡️</button>
+        </div>
+      </div>
+    </div>
+    <div style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 1; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <video id="tryOnWebcam" autoplay playsinline muted></video>
+      <canvas id="hiddenAiCanvas" style="display:none;"></canvas>
+      <div id="tryOnLeftEarring">
+        <canvas id="tryOnLeftCanvas" style="max-width: 100%; max-height: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));"></canvas>
+      </div>
+      <div id="tryOnRightEarring">
+        <canvas id="tryOnRightCanvas" style="max-width: 100%; max-height: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));"></canvas>
+      </div>
+      <div style="position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 6px; font-size: 11px; color: var(--gold); z-index: 10;" id="tryOnBadgeLabel">🤖 AI Auto-Scale Tracking Active</div>
+    </div>
+    <div class="row" style="position: absolute; bottom: 16px; left: 16px; right: 16px; margin: 0; z-index: 10; gap: 8px; background: transparent;">
+      <button class="btn btn-secondary" id="stopTryOnCameraBtn" type="button" style="background: rgba(0,0,0,0.8);">Close Camera</button>
+      <button class="btn" id="tryOnProceedOrderBtn" type="button" style="margin-top:0;">Looks Good! Order Now</button>
+    </div>
+  </div>
+</div>
+<div class="expand-modal-bg" id="designSelectionModal">
+  <div class="expand-modal-box" style="max-width: 450px; text-align: left;">
+    <button class="close-modal" id="closeDesignModalBtn" type="button">✕</button>
+    <div style="font-size: 14px; font-weight: bold; color: var(--gold); margin-bottom: 4px; text-align: center;">🎯 Choose Design / Variation</div>
+    <div id="designModalItemTitle" style="font-size: 12px; color: var(--muted); margin-bottom: 12px; text-align: center;"></div>
+    <div style="font-size: 11px; color: var(--text); font-weight: bold; margin-bottom: 6px;">Select specific variation/image:</div>
+    <div id="designChoicesContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 320px; overflow-y: auto; margin-bottom: 14px; padding: 4px;"></div>
+    <button class="btn" id="confirmDesignChoiceBtn" type="button" style="margin-top: 0;">Proceed with Selected Design</button>
+  </div>
+</div>
+<div class="expand-modal-bg" id="expandCatalogModal">
+  <div class="expand-modal-box">
+    <button class="close-modal" id="closeExpandModalBtn" type="button">✕</button>
+    <div id="expandMediaContainer"></div>
+    <div id="expandModalTitle" style="font-size: 14px; font-weight: bold; color: var(--text); margin-bottom: 4px;"></div>
+    <div id="expandModalDetails" style="font-size: 11px; color: var(--muted);">Vadiraj Jewellers Verified Media</div>
+  </div>
+</div>
+<div id="returnOverlay">
+  <div style="background:var(--card); padding:30px; border-radius:16px; border:1px solid var(--gold); max-width:300px;">
+    <h3 style="color:var(--gold);">WhatsApp Opened</h3>
+    <p style="font-size:14px; margin:15px 0;">Please click <b>Send</b> in WhatsApp to finish your order. Then, switch back to this tab.</p>
+    <button class="btn" onclick="document.getElementById('returnOverlay').style.display='none'">Return to App</button>
+  </div>
+</div><script>let db = null;
+// ---- Staff PIN protection for invoice generation & the PAID stamp ----
+// Only someone who knows this PIN can generate/finalize an invoice or trigger
+// the "PAID IN FULL" seal. Change STAFF_PIN below to whatever code your staff
+// will use. This is a front-line deterrent, not real security — anyone who
+// opens this file's source can read the PIN, so don't rely on it to stop a
+// technically determined person. Pair it with keeping the real source file
+// private and treating Firebase records (not the on-screen stamp) as the
+// source of truth when a customer disputes payment.
+const STAFF_PIN = '4826';
+let staffPinVerifiedAt = 0; // timestamp of last successful PIN entry (this session)
+const STAFF_PIN_SESSION_MS = 30 * 60 * 1000; // re-ask every 30 minutes
+function requireStaffPin(actionLabel) {
+  const now = Date.now();
+  if (staffPinVerifiedAt && (now - staffPinVerifiedAt) < STAFF_PIN_SESSION_MS) return true;
+  const entered = window.prompt('Enter Staff PIN to ' + actionLabel + ':');
+  if (entered === null) return false;
+  if (entered.trim() === STAFF_PIN) {
+    staffPinVerifiedAt = Date.now();
+    return true;
+  }
+  alert('Incorrect PIN. Action cancelled.');
+  return false;
+}
+// ---- Invoice mode: brand-new sale vs. adding a payment to an existing invoice ----
+let invoiceMode = 'new'; // 'new' | 'existing'
+let loadedExistingInvoice = null; // populated when an existing invoice is loaded for a follow-up payment
+function parseRupeeToNumber(str) {
+  if (typeof str === 'number') return str;
+  if (!str) return 0;
+  const n = parseFloat(String(str).replace(/[₹,]/g, '').trim());
+  return isNaN(n) ? 0 : n;
+}
+
+// Free image hosting via Cloudinary (same account used by the admin panel).
+const CLOUDINARY_CLOUD_NAME = 'qcmo5tqy';
+const CLOUDINARY_UPLOAD_PRESET = 'Vadiraj';
+
+async function uploadDataUrlToCloudinary(dataUrl) {
+  const formData = new FormData();
+  formData.append('file', dataUrl);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  const resp = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
+  const result = await resp.json();
+  if (!resp.ok || !result.secure_url) {
+    throw new Error((result && result.error && result.error.message) || 'Screenshot upload failed');
+  }
+  return result.secure_url;
+}
+
+function readPaymentScreenshotAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) return reject(new Error('Please upload the payment screenshot before submitting the order.'));
+    if (!file.type.startsWith('image/')) return reject(new Error('Please select an image payment screenshot.'));
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const maxSide = 1400;
+        const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round((img.naturalWidth || img.width) * scale));
+        canvas.height = Math.max(1, Math.round((img.naturalHeight || img.height) * scale));
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Keep the Firebase Realtime Database value safely small.
+        // The screenshot is still readable in the Admin panel.
+        let quality = 0.72;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+        while (dataUrl.length > 1800000 && quality > 0.42) {
+          quality -= 0.06;
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+        if (dataUrl.length > 1800000) {
+          return reject(new Error('Screenshot is too large. Please choose a smaller image.'));
+        }
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error('Could not read the payment screenshot.'));
+      img.src = reader.result;
+    };
+    reader.onerror = () => reject(new Error('Could not read the payment screenshot file.'));
+    reader.readAsDataURL(file);
+  });
+}
+// ---- Shared customer directory, keyed by phone number ----
+// Any time we capture a name + phone (invoice generated, order submitted),
+// we upsert customers/<safePhone> so the number becomes a lookup key for
+// that customer's name and full history from then on.
+function safePhoneKey(phone) {
+  return String(phone || '').replace(/\D/g, '').trim();
+}
+function upsertCustomerDirectory(phone, name, extra) {
+  if (!db) return;
+  let key = safePhoneKey(phone);
+  if (!key || !name) return;
+  let ref = db.ref('customers/' + key);
+  ref.once('value').then(snapshot => {
+    let existing = snapshot.val() || {};
+    let invoiceNumbers = Array.isArray(existing.invoiceNumbers) ? existing.invoiceNumbers.slice() : [];
+    let orderIds = Array.isArray(existing.orderIds) ? existing.orderIds.slice() : [];
+    if (extra && extra.invoiceNumber && !invoiceNumbers.includes(extra.invoiceNumber)) invoiceNumbers.push(extra.invoiceNumber);
+    if (extra && extra.orderId && !orderIds.includes(extra.orderId)) orderIds.push(extra.orderId);
+    let record = {
+      phone: key,
+      name: name || existing.name || '',
+      invoiceNumbers,
+      orderIds,
+      firstSeen: existing.firstSeen || Date.now(),
+      lastUpdated: Date.now()
+    };
+    ref.set(record).catch(err => console.error('Customer directory save error:', err));
+  }).catch(err => console.error('Customer directory read error:', err));
+}
+function lookupCustomerByPhone(phone, callback) {
+  if (!db) { callback(null); return; }
+  let key = safePhoneKey(phone);
+  if (!key) { callback(null); return; }
+  db.ref('customers/' + key).once('value').then(snapshot => callback(snapshot.val())).catch(err => {
+    console.error('Customer lookup error:', err);
+    callback(null);
+  });
+}
+// Autofill name whenever a full-length phone number is typed into either the
+// invoice generator or the order form, without stomping on a name someone is
+// already mid-typing.
+function wireAutofillOnPhone(phoneInputId, nameInputId) {
+  const phoneEl = document.getElementById(phoneInputId);
+  const nameEl = document.getElementById(nameInputId);
+  if (!phoneEl || !nameEl) return;
+  phoneEl.addEventListener('blur', () => {
+    let digits = safePhoneKey(phoneEl.value);
+    if (digits.length < 10) return;
+    if (nameEl.value.trim()) return; // don't override a name already entered
+    lookupCustomerByPhone(digits, record => {
+      if (record && record.name) {
+        nameEl.value = record.name;
+        if (typeof calculateCost === 'function' && nameInputId === 'calcCustomerName') calculateCost();
+      }
+    });
+  });
+}
+// In "New Sale" mode, show what this customer has bought/paid before as soon
+// as their phone number is entered — purely informational, doesn't lock or
+// change any field, just gives the staff visibility before billing a new item.
+function showPreviousPurchasesForNewSale() {
+  const box = document.getElementById('newSalePreviousPurchases');
+  if (!box) return;
+  if (invoiceMode !== 'new') { box.style.display = 'none'; box.innerHTML = ''; return; }
+  let phone = document.getElementById('calcCustomerPhone').value.trim();
+  let digits = safePhoneKey(phone);
+  if (digits.length < 10) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  if (!db) return;
+  box.style.display = 'block';
+  box.innerHTML = '<div style="font-size:11px; color:var(--muted);">Checking previous purchases…</div>';
+  lookupCustomerByPhone(digits, custRecord => {
+    if (invoiceMode !== 'new') return; // mode may have changed while this was loading
+    if (!custRecord || !Array.isArray(custRecord.invoiceNumbers) || !custRecord.invoiceNumbers.length) {
+      box.innerHTML = '<div style="font-size:11px; color:var(--muted);">No previous purchases found for this number — new customer.</div>';
+      return;
+    }
+    Promise.all(custRecord.invoiceNumbers.map(num =>
+      db.ref('invoices/' + num.replace(/[.#$\[\]\/]/g, '_')).once('value').then(s => s.val())
+    )).then(records => {
+      if (invoiceMode !== 'new') return;
+      let items = records.filter(Boolean);
+      if (!items.length) { box.innerHTML = '<div style="font-size:11px; color:var(--muted);">No previous purchases found for this number — new customer.</div>'; return; }
+      box.innerHTML = `<div style="font-size:11px; color:var(--gold); font-weight:bold; margin-bottom:6px;">📜 Previous Purchases — ${custRecord.name || 'this customer'}</div>` +
+        items.map(r => {
+          let bal = Math.max(0, (r.grandTotalNum !== undefined ? r.grandTotalNum : parseRupeeToNumber(r.grandTotal)) - (r.advancePaidNum !== undefined ? r.advancePaidNum : parseRupeeToNumber(r.advancePaid)));
+          let balNote = bal > 0 ? `<span style="color:var(--red);"> | Balance Due: ₹${bal.toLocaleString('en-IN')}</span>` : '<span style="color:var(--green);"> | Fully Paid</span>';
+          return `<div style="font-size:11px; color:var(--text); padding:3px 0; border-top:1px dashed var(--border);">
+            <b>${r.invNumber}</b> — ${r.itemDesc} (${r.purity}, ${r.weight})<br>
+            ${r.date || ''} | Total: ${r.grandTotal}${balNote}
+          </div>`;
+        }).join('');
+    });
+  });
+}
+function renderCustomerDirectoryResult(record, invoiceRecords, orderRecords) {
+  let container = document.getElementById('customerDirectoryResultContainer');
+  if (!record) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No customer found with that mobile number yet — they\'ll be saved automatically next time an invoice or order is created for them.</div>';
+    return;
+  }
+  let html = `
+    <div class="item-card">
+      <div style="font-size:14px; font-weight:bold; color:var(--gold); margin-bottom:4px;">${record.name || 'Unnamed Customer'}</div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Phone:</b> ${record.phone}</div>
+      <div style="font-size:11px; color:var(--muted);"><b>On file since:</b> ${record.firstSeen ? new Date(record.firstSeen).toLocaleDateString() : '—'}</div>
+    </div>
+  `;
+  if (invoiceRecords.length) {
+    html += '<div style="font-size:12px; color:var(--gold); font-weight:bold; margin:10px 0 6px;">Invoices</div>';
+    invoiceRecords.forEach(inv => {
+      html += `
+        <div class="item-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <b style="color:var(--gold); font-size:12px;">${inv.invNumber}</b>
+            <span style="font-size:10px; color:var(--muted);">${inv.date || ''}</span>
+          </div>
+          <div style="font-size:11px; color:var(--text);"><b>Item:</b> ${inv.itemDesc}</div>
+          <div style="font-size:11px; color:var(--text);"><b>Grand Total:</b> ${inv.grandTotal} | <b>Paid:</b> ${inv.advancePaid} | <b>Balance:</b> ${inv.balanceDue}</div>
+        </div>
+      `;
+    });
+  }
+  if (orderRecords.length) {
+    html += '<div style="font-size:12px; color:var(--gold); font-weight:bold; margin:10px 0 6px;">Orders</div>';
+    orderRecords.forEach(ord => {
+      html += `
+        <div class="item-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <b style="color:var(--gold); font-size:12px;">${ord.orderId}</b>
+            <span style="font-size:10px; color:var(--muted);">${ord.status || ''}</span>
+          </div>
+          <div style="font-size:11px; color:var(--text);"><b>Item:</b> ${ord.itemDesc || ord.orderType}</div>
+          <div style="font-size:11px; color:var(--text);"><b>Total:</b> ₹${ord.total} | <b>Paid:</b> ₹${ord.paid}</div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
+}
+function searchCustomerDirectory() {
+  let raw = document.getElementById('customerDirectorySearchInput').value.trim();
+  let container = document.getElementById('customerDirectoryResultContainer');
+  if (!raw) { container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Enter a mobile number above.</div>'; return; }
+  if (!db) { container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Database connection offline.</div>'; return; }
+  container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Searching…</div>';
+  lookupCustomerByPhone(raw, record => {
+    if (!record) { renderCustomerDirectoryResult(null, [], []); return; }
+    let invoiceNumbers = Array.isArray(record.invoiceNumbers) ? record.invoiceNumbers : [];
+    let orderIds = Array.isArray(record.orderIds) ? record.orderIds : [];
+    Promise.all([
+      Promise.all(invoiceNumbers.map(num => db.ref('invoices/' + num.replace(/[.#$\[\]\/]/g, '_')).once('value').then(s => s.val()))),
+      Promise.all(orderIds.map(id => db.ref('orders/' + id).once('value').then(s => s.val())))
+    ]).then(([invoices, orders]) => {
+      renderCustomerDirectoryResult(record, invoices.filter(Boolean), orders.filter(Boolean));
+    }).catch(err => {
+      console.error('Customer directory detail load error:', err);
+      renderCustomerDirectoryResult(record, [], []);
+    });
+  });
+}
+let globalRates = { '24k_10g': 144600, 'silver_1kg': 95000, 'silver_925_1kg': 85000 };
+let rawCatalogData = null;
+let activeDesignModalData = null;
+let currentChosenMediaIndex = 0;
+let activeTryOnItem = null;
+let activeTryOnCategory = 'Earrings';
+let activeTryOnScale = 1.0;
+let userManualOffsetX = 0;
+let userManualOffsetY = 0;
+let faceMeshInstance = null;
+let handsInstance = null;
+let cameraInstance = null;
+let isTryOnActive = false;
+let modelsInitialized = false;
+let smoothedLeftX = 0, smoothedLeftY = 0, smoothedLeftAngle = 0, smoothedLeftSize = 100;
+let smoothedRightX = 0, smoothedRightY = 0, smoothedRightAngle = 0, smoothedRightSize = 100;
+let hasInitializedSmoothing = false;
+let deviceUuid = localStorage.getItem('vadiraj_device_uuid');
+if (!deviceUuid) {
+  deviceUuid = 'UUID-' + Math.random().toString(36).substring(2, 10).toUpperCase() + '-' + Date.now();
+  localStorage.setItem('vadiraj_device_uuid', deviceUuid);
+}
+let uniqueAppUserId = 'CUST-' + Math.abs(hashCode(deviceUuid)).toString().padStart(6, '0');
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const rootElement = document.documentElement;
+let savedTheme = localStorage.getItem('vadiraj_theme') || 'dark';
+rootElement.setAttribute('data-theme', savedTheme);
+updateThemeButtonLabel(savedTheme);
+themeToggleBtn.onclick = () => {
+  let currentTheme = rootElement.getAttribute('data-theme');
+  let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  rootElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('vadiraj_theme', newTheme);
+  updateThemeButtonLabel(newTheme);
+};
+function updateThemeButtonLabel(theme) {
+  themeToggleBtn.innerText = theme === 'light' ? '🌙 Dark' : '☀️ Light';
+}
+function dismissLoader() {
+  let loader = document.getElementById('blinkitLoader');
+  if (loader && loader.style.display !== 'none') {
+    loader.style.opacity = '0';
+    setTimeout(() => { loader.style.display = 'none'; }, 400);
+  }
+}
+const FIREBASE_APP_SOURCES = [
+  "https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js",
+  "https://cdn.jsdelivr.net/npm/firebase@9.22.1/firebase-app-compat.js",
+  "https://unpkg.com/firebase@9.22.1/firebase-app-compat.js"
+];
+const FIREBASE_DB_SOURCES = [
+  "https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js",
+  "https://cdn.jsdelivr.net/npm/firebase@9.22.1/firebase-database-compat.js",
+  "https://unpkg.com/firebase@9.22.1/firebase-database-compat.js"
+];
+/* ================= WEB-HOST SAFE BOOTSTRAP ================= */
+let firebaseBootStarted = false;
+let appBootFinished = false;
+let loaderSafetyTimer = null;
+function dismissLoader(force = false) {
+  if (appBootFinished && !force) return;
+  appBootFinished = true;
+  if (loaderSafetyTimer) clearTimeout(loaderSafetyTimer);
+  const loader = document.getElementById('blinkitLoader');
+  if (!loader) return;
+  loader.style.opacity = '0';
+  loader.style.pointerEvents = 'none';
+  setTimeout(() => { loader.style.display = 'none'; }, 450);
+}
+function showFirebaseUnavailableState(message) {
+  const rateFieldIds = ['live24kRate','live24kPerGram','live22kRate','live22kPerGram','live20kRate','live20kPerGram','live18kRate','live18kPerGram','liveSilverRate','liveSilverPerGram','live925SilverRate','live925SilverPerGram'];
+  rateFieldIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value) el.value = 'Unavailable';
+  });
+  const catalogContainer = document.getElementById('customerCatalogContainer');
+  if (catalogContainer && !rawCatalogData) {
+    catalogContainer.innerHTML = '<div class="catalog-loading-state" style="font-size:13px;color:var(--muted);text-align:center;padding:28px;">⏳ loading ⏳<br><span style="font-size:10px;opacity:.75;">Loading live catalogue…</span></div>';
+  }
+}
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    if ([...document.scripts].some(x => x.src === url)) {
+      const existing = [...document.scripts].find(x => x.src === url);
+      if (existing.dataset.loaded === '1') return resolve();
+      existing.addEventListener('load', () => resolve(), {once:true});
+      existing.addEventListener('error', () => reject(new Error('Failed: '+url)), {once:true});
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = url;
+    s.async = false;
+    s.onload = () => { s.dataset.loaded = '1'; resolve(); };
+    s.onerror = () => reject(new Error('Failed: '+url));
+    document.head.appendChild(s);
+  });
+}
+async function loadFirebaseFallback() {
+  const appUrls = [
+    'https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js',
+    'https://cdn.jsdelivr.net/npm/firebase@9.22.1/compat/firebase-app.js',
+    'https://unpkg.com/firebase@9.22.1/compat/firebase-app.js'
+  ];
+  const dbUrls = [
+    'https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js',
+    'https://cdn.jsdelivr.net/npm/firebase@9.22.1/compat/firebase-database.js',
+    'https://unpkg.com/firebase@9.22.1/compat/firebase-database.js'
+  ];
+  for (const u of appUrls) {
+    if (typeof firebase !== 'undefined') break;
+    try { await loadScript(u); } catch(e) {}
+  }
+  for (const u of dbUrls) {
+    if (typeof firebase !== 'undefined' && firebase.database) break;
+    try { await loadScript(u); } catch(e) {}
+  }
+  return typeof firebase !== 'undefined' && !!firebase.database;
+}
+async function startFirebase() {
+  if (firebaseBootStarted) return;
+  firebaseBootStarted = true;
+  try {
+    if (!(typeof firebase !== 'undefined' && firebase.database)) {
+      const ok = await loadFirebaseFallback();
+      if (!ok) throw new Error('Firebase SDK could not be loaded');
+    }
+    const firebaseConfig = {
+      /* Fill these in from Firebase Console > Project settings > General > Your apps > SDK setup and configuration.
+         Google Sign-In will not work until apiKey, authDomain and projectId are filled in. */
+      apiKey: 'AIzaSyCtfWPA5cjz75K9c3nVAifG7cnPwRFfDzA',
+      authDomain: 'vadiraj-jewellers-42410.firebaseapp.com',
+      projectId: 'vadiraj-jewellers-42410',
+      storageBucket: 'vadiraj-jewellers-42410.firebasestorage.app',
+      messagingSenderId: '660413576393',
+      appId: '1:660413576393:web:e860e275b3d37149e7c918',
+      databaseURL: 'https://vadiraj-jewellers-42410-default-rtdb.firebaseio.com/'
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    try { initGoogleSignIn(); } catch (authInitError) { console.error('Auth init error:', authInitError); }
+    try { initStrictPreload(); } catch (preloadError) {
+      console.error('Preload start error:', preloadError);
+      dismissLoader(true);
+    }
+  } catch (e) {
+    console.error('Firebase startup error:', e && (e.code || e.message || e));
+    showFirebaseUnavailableState('Live data could not be connected right now. The website is still available.');
+    dismissLoader(true);
+  }
+}
+/* Never allow a CDN/Firebase failure to leave the website stuck on splash. */
+loaderSafetyTimer = setTimeout(() => {
+  if (!appBootFinished) {
+    console.warn('Boot safety timeout: opening website without waiting for Firebase.');
+    showFirebaseUnavailableState();
+    dismissLoader(true);
+  }
+}, 8000);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startFirebase, {once:true});
+} else {
+  startFirebase();
+}
+function preInitializeModels() {
+  if (modelsInitialized) return;
+  try {
+    if (typeof FaceMesh !== 'undefined') {
+      faceMeshInstance = new FaceMesh({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+      });
+      faceMeshInstance.setOptions({ maxNumFaces: 1, refineLandmarks: true, minDetectionConfidence: 0.75, minTrackingConfidence: 0.75 });
+      faceMeshInstance.onResults(onFaceMeshResults);
+    }
+    if (typeof Hands !== 'undefined') {
+      handsInstance = new Hands({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+      });
+      handsInstance.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.75, minTrackingConfidence: 0.75 });
+      handsInstance.onResults(onHandsResults);
+    }
+    modelsInitialized = true;
+  } catch (err) {
+    console.log("Background model pre-warm pending script load:", err);
+  }
+}
+// Fixed ₹20 Support QR
+(function initSupportQR(){
+  function render(){
+    const box=document.getElementById('supportQrCode');
+    if(!box || typeof QRCode==='undefined') return;
+    box.innerHTML='';
+    new QRCode(box,{
+      text:'upi://pay?pa=raikar.arpitha@ybl&pn=Vadiraj%20Jewellers&am=20.00&cu=INR&tn=Support%20Vadiraj%20Jewellers%20App',
+      width:170,height:170,correctLevel:QRCode.CorrectLevel.H
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',render); else render();
+})();
+document.querySelectorAll('.tabs').forEach(container => {
+  let buttons = container.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.onclick = () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      container.parentElement.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+      if (btn.getAttribute('data-tab') === 'custLedgerTab') loadCustomerLedger();
+    };
+  });
+});
+document.getElementById('closeExpandModalBtn').onclick = () => {
+  document.getElementById('expandCatalogModal').classList.remove('active');
+  document.getElementById('expandMediaContainer').innerHTML = '';
+};
+document.getElementById('closeDesignModalBtn').onclick = () => {
+  document.getElementById('designSelectionModal').classList.remove('active');
+};
+function expandMedia(mediaSrc, titleText) {
+  let container = document.getElementById('expandMediaContainer');
+  let isVideo = mediaSrc.startsWith('data:video/') || mediaSrc.match(/\.(mp4|webm|quicktime)$/i);
+  if (isVideo) {
+    container.innerHTML = `<video src="${mediaSrc}" class="expand-video" controls autoplay playsinline></video>`;
+  } else {
+    container.innerHTML = `<img src="${mediaSrc}" class="expand-img" alt="Expanded View" />`;
+  }
+  document.getElementById('expandModalTitle').innerText = titleText;
+  document.getElementById('expandCatalogModal').classList.add('active');
+}
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    let char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+function startAutoCarousel() {
+  setInterval(() => {
+    const carousels = document.querySelectorAll('.carousel-container');
+    carousels.forEach(carousel => {
+      let totalSlides = parseInt(carousel.getAttribute('data-total')) || 0;
+      if (totalSlides > 1) {
+        let isCurrentVideo = carousel.getAttribute('data-is-video') === 'true';
+        if (!isCurrentVideo) {
+          window.moveSlide(carousel.id, 1);
+        }
+      }
+    });
+  }, 3000);
+}
+window.addEventListener('DOMContentLoaded', () => {
+  startAutoCarousel();
+  setTimeout(preInitializeModels, 300);
+  const notifyBtn = document.getElementById('notifyBtn');
+  if (notifyBtn) {
+    if (!("Notification" in window)) {
+      notifyBtn.style.display = 'none';
+    } else {
+      notifyBtn.onclick = () => {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            new Notification("Vadiraj Jewellers", {
+              body: "Notifications enabled! We will alert you about your order status.",
+              icon: "https://cdn-icons-png.flaticon.com/512/3002/3002633.png"
+            });
+            notifyBtn.innerText = "✅ Notifications Enabled";
+            notifyBtn.disabled = true;
+          } else {
+            alert("Permission denied. You can enable them in your browser settings.");
+          }
+        });
+      };
+    }
+  }
+  const screenshotInput = document.getElementById('orderScreenshotFile');
+  if (screenshotInput) {
+    screenshotInput.onchange = function(e) {
+      let file = e.target.files[0];
+      if (!file) return;
+      let utrInput = document.getElementById('orderUtr');
+      utrInput.value = "Extracting UTR via OCR...";
+      Tesseract.recognize(
+        file,
+        'eng',
+        { logger: m => console.log(m) }
+      ).then(({ data: { text } }) => {
+        console.log("OCR Result:", text);
+        let match = text.match(/(?:UTR|Ref|UPI|Transaction|Txn)[^\d]*(\d{10,16})/i) || text.match(/\b\d{12}\b/);
+        if (match) {
+          utrInput.value = match[1] || match[0];
+        } else {
+          let numbers = text.match(/\b\d{10,16}\b/g);
+          if (numbers && numbers.length > 0) {
+            utrInput.value = numbers[0];
+          } else {
+            utrInput.value = "";
+            alert("Could not auto-detect UTR. Please enter manually.");
+          }
+        }
+      }).catch(err => {
+        console.error("OCR Error:", err);
+        utrInput.value = "";
+        alert("OCR extraction failed. Please enter UTR manually.");
+      });
+    };
+  }
+  const orderPaidField = document.getElementById('orderPaid');
+  if (orderPaidField) orderPaidField.addEventListener('input', () => updateUpiQr(orderPaidField.value));
+  function updateOrderPaymentDeepLinks() {
+    const paidEl = document.getElementById('orderPaid');
+    const amount = Math.max(0, parseFloat(paidEl?.value) || 0).toFixed(2);
+    const params = `pa=raikar.arpitha@ybl&pn=Vadiraj%20Jewellers&am=${amount}&cu=INR&tn=Vadiraj%20Jewellers%20Order`;
+    const links = {
+      orderPhonePeBtn: `phonepe://pay?${params}`,
+      orderGooglePayBtn: `tez://upi/pay?${params}`,
+      orderPaytmBtn: `paytmmp://pay?${params}`
+    };
+    Object.entries(links).forEach(([id, href]) => {
+      const el = document.getElementById(id);
+      if (el) el.href = href;
+    });
+  }
+  ['input','change'].forEach(evt => {
+    const el = document.getElementById('orderPaid');
+    if (el) el.addEventListener(evt, updateOrderPaymentDeepLinks);
+  });
+  updateOrderPaymentDeepLinks();
+
+  const submitOrderBtn = document.getElementById('submitOrderBtn');
+  if (submitOrderBtn) {
+    submitOrderBtn.onclick = async () => {
+      let name = document.getElementById('orderName').value.trim();
+      let phone = document.getElementById('orderPhone').value.trim();
+      let address = document.getElementById('orderAddress').value.trim();
+      let pincode = document.getElementById('orderPincode').value.trim();
+      let orderType = document.getElementById('orderType').value;
+      let itemDesc = document.getElementById('orderItemDesc').value.trim();
+      let total = parseFloat(document.getElementById('orderTotal').value) || 0;
+      let paid = parseFloat(document.getElementById('orderPaid').value) || 0;
+      let utr = document.getElementById('orderUtr').value.trim();
+      const screenshotFile = document.getElementById('orderScreenshotFile')?.files?.[0] || null;
+      if (!name || !phone || !address || !pincode) {
+        alert("Please fill in all required customer details and address fields.");
+        return;
+      }
+      if (!db) {
+        alert("Database connection offline.");
+        return;
+      }
+      let orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+      let screenshotUrl = '';
+      try {
+        submitOrderBtn.disabled = true;
+        submitOrderBtn.innerText = '⏳ Saving Payment Screenshot…';
+        let screenshotDataUrl = await readPaymentScreenshotAsDataUrl(screenshotFile);
+        submitOrderBtn.innerText = '⏳ Uploading Screenshot…';
+        screenshotUrl = await uploadDataUrlToCloudinary(screenshotDataUrl);
+      } catch (screenshotErr) {
+        console.error('Payment screenshot error:', screenshotErr);
+        alert(screenshotErr.message || 'Could not save the payment screenshot.');
+        submitOrderBtn.disabled = false;
+        submitOrderBtn.innerText = 'Submit Order & Payment Receipt';
+        return;
+      }
+      let orderData = {
+        orderId,
+        deviceUuid,
+        uniqueAppUserId,
+        name,
+        phone,
+        address,
+        pincode,
+        orderType,
+        itemDesc,
+        total,
+        paid,
+        utr: utr || 'PENDING_VERIFICATION',
+        status: 'Pending Verification',
+        timestamp: Date.now(),
+        date: new Date().toLocaleString(),
+        // IMPORTANT: save the uploaded payment screenshot inside the same order
+        screenshot: screenshotUrl || ''
+      };
+      db.ref('orders/' + orderId).set(orderData).then(() => {
+        alert("Order submitted successfully! Payment screenshot saved. You can check status in the Ledger tab.");
+        upsertCustomerDirectory(phone, name, { orderId });
+        document.querySelectorAll('#customerTabsContainer .tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#customerPortalWrapper .panel').forEach(p => p.classList.remove('active'));
+        document.querySelector('[data-tab="custLedgerTab"]').classList.add('active');
+        document.getElementById('custLedgerTab').classList.add('active');
+        loadCustomerLedger();
+      }).catch(err => {
+        console.error("Order submission error:", err);
+        alert("Failed to submit order. Please try again.");
+  }).finally(() => {
+        submitOrderBtn.disabled = false;
+        submitOrderBtn.innerText = 'Submit Order & Payment Receipt';
+      });
+    };
+  }
+  const submitBugBtn = document.getElementById('submitBugBtn');
+  if (submitBugBtn) {
+    submitBugBtn.onclick = () => {
+      let contact = document.getElementById('bugContact').value.trim();
+      let desc = document.getElementById('bugDesc').value.trim();
+      if (!desc) {
+        alert("Please describe the issue before submitting.");
+        return;
+      }
+      if (!db) {
+        alert("Database connection offline.");
+        return;
+      }
+      let ticketId = 'TICKET-' + Math.floor(100000 + Math.random() * 900000);
+      db.ref('support_tickets/' + ticketId).set({
+        ticketId,
+        deviceUuid,
+        contact: contact || 'Anonymous',
+        desc,
+        status: 'Open',
+        timestamp: Date.now()
+      }).then(() => {
+        alert("Support ticket sent successfully to Admin!");
+        document.getElementById('bugDesc').value = '';
+        document.getElementById('bugContact').value = '';
+      }).catch(err => {
+        console.error("Support ticket error:", err);
+        alert("Failed to send support ticket.");
+      });
+    };
+  }
+});
+function initStrictPreload() {
+  if (!db) {
+    showFirebaseUnavailableState('Database connection is unavailable.');
+    loadLocalDataFallback();
+    dismissLoader(true);
+    return;
+  }
+
+  const normalizeCatalogValue = (value) => {
+    if (!value || typeof value !== 'object') return {};
+    // Support both the original flat catalogue and common wrapped/array Firebase shapes.
+    if (Array.isArray(value)) {
+      const out = {};
+      value.forEach((item, i) => { if (item && typeof item === 'object') out[item.id || item.key || String(i)] = item; });
+      return out;
+    }
+    const wrappedKeys = ['items','catalog','catalogue','catalogueItems','products','data'];
+    for (const k of wrappedKeys) {
+      if (value[k] && typeof value[k] === 'object') {
+        const nested = normalizeCatalogValue(value[k]);
+        if (Object.keys(nested).length) return nested;
+      }
+    }
+    const out = {};
+    Object.entries(value).forEach(([key,item]) => {
+      if (item && typeof item === 'object' && !Array.isArray(item)) out[key] = item;
+    });
+    return out;
+  };
+
+  const readFirstAvailable = async (paths) => {
+    let lastError = null;
+    for (const path of paths) {
+      try {
+        const snap = await db.ref(path).once('value');
+        const value = snap.val();
+        const normalized = normalizeCatalogValue(value);
+        if (Object.keys(normalized).length) return {path, value: normalized};
+      } catch (e) { lastError = e; }
+    }
+    if (lastError) throw lastError;
+    return {path: paths[0], value: {}};
+  };
+
+  const loadRates = async () => {
+    const result = await readFirstAvailable(['admin_rates','rates','market_rates']);
+    if (result.value && Object.keys(result.value).length) {
+      globalRates = Object.assign({}, globalRates || {}, result.value);
+      applyLiveRates(result.value);
+      try { localStorage.setItem('vadiraj_rates_cache', JSON.stringify(globalRates)); } catch(e) {}
+    }
+    return result;
+  };
+
+  const loadCatalogFast = async () => {
+    for (const path of ['catalog', 'catalogue', 'catalogue_items', 'products']) {
+      try {
+        const snap = await db.ref(path).orderByKey().limitToLast(10).once('value');
+        const value = snap.val();
+        const normalized = normalizeCatalogValue(value);
+        if (Object.keys(normalized).length) {
+          rawCatalogData = normalized;
+          renderFilteredCatalog();
+          return { path, value: normalized };
+        }
+      } catch (e) { /* try next path */ }
+    }
+    return null;
+  };
+
+  const loadCatalog = async () => {
+    const result = await readFirstAvailable(['catalog','catalogue','catalogue_items','products']);
+    rawCatalogData = result.value || {};
+    if (Object.keys(rawCatalogData).length) {
+      try { localStorage.setItem('vadiraj_catalog_cache', JSON.stringify(rawCatalogData)); } catch(e) {}
+    }
+    renderFilteredCatalog();
+    return result;
+  };
+
+  loadLocalDataFallback();
+
+  // Catalogue: render cached/fast data first, then refresh from Firebase.
+  // Never leave the customer on an infinite loading screen.
+  const catalogFastPromise = loadCatalogFast();
+  const catalogTimeout = new Promise(resolve => setTimeout(() => resolve({timeout:true}), 7000));
+
+  Promise.race([catalogFastPromise, catalogTimeout]).then(async fastResult => {
+    if (!rawCatalogData || Object.keys(rawCatalogData).length === 0) {
+      if (fastResult && fastResult.timeout) {
+        renderCatalogLoadError(new Error('Firebase catalogue request timed out.'));
+      } else {
+        renderCatalogLoadError(new Error('No catalogue items were returned from Firebase.'));
+      }
+    }
+    calculateCost();
+    dismissLoader(true);
+
+    // Full catalogue refresh happens after the app is usable.
+    try {
+      const result = await loadCatalog();
+      if (!result || !result.value || !Object.keys(result.value).length) {
+        if (!rawCatalogData || !Object.keys(rawCatalogData).length) {
+          renderCatalogLoadError(new Error('No catalogue items found.'));
+        }
+      }
+    } catch (err) {
+      console.error('Full catalogue load error:', err);
+      if (!rawCatalogData || !Object.keys(rawCatalogData).length) {
+        renderCatalogLoadError(err);
+      }
+    }
+  }).catch(err => {
+    console.error('Catalogue startup error:', err);
+    calculateCost();
+    dismissLoader(true);
+    if (!rawCatalogData || !Object.keys(rawCatalogData).length) renderCatalogLoadError(err);
+  });
+
+  // Rates are independent and must never block catalogue rendering.
+  loadRates().catch(err => console.error('Rates load error:', err));
+
+  ['catalog','catalogue','catalogue_items','products'].forEach(path => {
+    db.ref(path).on('value', snapshot => {
+      const value = snapshot.val();
+      if (value && typeof value === 'object' && Object.keys(value).length) {
+        rawCatalogData = normalizeCatalogValue(value);
+        try { localStorage.setItem('vadiraj_catalog_cache', JSON.stringify(rawCatalogData)); } catch(e) {}
+        renderFilteredCatalog();
+      }
+    }, err => console.warn('Catalogue listener '+path+' error:', err));
+  });
+
+  ['admin_rates','rates','market_rates'].forEach(path => {
+    db.ref(path).on('value', snapshot => {
+      const value = snapshot.val();
+      if (value && typeof value === 'object' && Object.keys(value).length) {
+        globalRates = Object.assign({}, globalRates || {}, value);
+        try { localStorage.setItem('vadiraj_rates_cache', JSON.stringify(globalRates)); } catch(e) {}
+        applyLiveRates(value);
+        renderFilteredCatalog();
+        calculateCost();
+      }
+    }, err => console.warn('Rates listener '+path+' error:', err));
+  });
+}
+
+function loadLocalDataFallback() {
+  // Use the last successful catalogue immediately while Firebase reconnects.
+  try {
+    const cachedCatalog = JSON.parse(localStorage.getItem('vadiraj_catalog_cache') || 'null');
+    if (cachedCatalog && typeof cachedCatalog === 'object' && Object.keys(cachedCatalog).length) {
+      rawCatalogData = cachedCatalog;
+      renderFilteredCatalog();
+    }
+  } catch(e) {
+    console.warn('Catalogue cache read error:', e);
+  }
+
+  try {
+    const cachedRates = localStorage.getItem('vadiraj_rates_cache');
+    if (cachedRates) {
+      const parsedRates = JSON.parse(cachedRates);
+      if (parsedRates && typeof parsedRates === 'object') {
+        globalRates = Object.assign({}, globalRates || {}, parsedRates);
+        applyLiveRates(parsedRates);
+      }
+    }
+  } catch(e) { console.warn('Rates cache read failed:', e); }
+  try {
+    const cachedCatalog = localStorage.getItem('vadiraj_catalog_cache');
+    if (cachedCatalog) {
+      const parsedCatalog = JSON.parse(cachedCatalog);
+      if (parsedCatalog && typeof parsedCatalog === 'object') {
+        rawCatalogData = normalizeCatalogValue(parsedCatalog);
+        renderFilteredCatalog();
+      }
+    }
+  } catch(e) { console.warn('Catalogue cache read failed:', e); }
+}
+
+function applyLiveRates(r) {
+  const rate24k = Number(r['24k_10g']) || 144600;
+  const rateSilver = Number(r['silver_1kg']) || 95000;
+  const rate925Silver = Number(r['silver_925_1kg']) || 85000;
+  const rate22k = Math.round(rate24k * (22 / 24));
+  const rate20k = Math.round(rate24k * (20 / 24));
+  const rate18k = Math.round(rate24k * (18 / 24));
+  const set = (id, value) => { const el=document.getElementById(id); if(el) el.value=value; };
+  set('live24kRate', '₹' + rate24k.toLocaleString('en-IN') + ' / 10g');
+  set('live24kPerGram', '₹' + Math.round(rate24k / 10).toLocaleString('en-IN') + ' / g');
+  set('live22kRate', '₹' + rate22k.toLocaleString('en-IN') + ' / 10g');
+  set('live22kPerGram', '₹' + Math.round(rate22k / 10).toLocaleString('en-IN') + ' / g');
+  set('live20kRate', '₹' + rate20k.toLocaleString('en-IN') + ' / 10g');
+  set('live20kPerGram', '₹' + Math.round(rate20k / 10).toLocaleString('en-IN') + ' / g');
+  set('live18kRate', '₹' + rate18k.toLocaleString('en-IN') + ' / 10g');
+  set('live18kPerGram', '₹' + Math.round(rate18k / 10).toLocaleString('en-IN') + ' / g');
+  set('liveSilverRate', '₹' + rateSilver.toLocaleString('en-IN') + ' / 1kg');
+  set('liveSilverPerGram', '₹' + Math.round(rateSilver / 1000).toLocaleString('en-IN') + ' / g');
+  set('live925SilverRate', '₹' + rate925Silver.toLocaleString('en-IN') + ' / 1kg');
+  set('live925SilverPerGram', '₹' + Math.round(rate925Silver / 1000).toLocaleString('en-IN') + ' / g');
+}
+
+function renderCatalogLoadError(err) {
+  const container = document.getElementById('customerCatalogContainer');
+  if (!container) return;
+  if (rawCatalogData && Object.keys(rawCatalogData).length) {
+    renderFilteredCatalog();
+    return;
+  }
+  const msg = err && err.message ? err.message : 'Could not load the live catalogue.';
+  console.error('Catalogue unavailable:', err);
+  container.innerHTML = `
+    <div class="catalog-loading-state" style="font-size:13px;color:var(--muted);text-align:center;padding:28px;">
+      <div style="font-size:24px;margin-bottom:8px;">⚠️</div>
+      <div style="color:var(--text);font-weight:700;margin-bottom:6px;">Catalogue could not be loaded</div>
+      <div style="font-size:10px;opacity:.8;margin-bottom:14px;">${String(msg).replace(/[<>]/g,'')}</div>
+      <button class="btn" type="button" onclick="retryCatalogueLoad()" style="max-width:220px;margin:auto;">🔄 Retry Catalogue</button>
+    </div>`;
+}
+
+window.retryCatalogueLoad = async function() {
+  const container = document.getElementById('customerCatalogContainer');
+  if (container) container.innerHTML = '<div class="catalog-loading-state" style="font-size:13px;color:var(--muted);text-align:center;padding:28px;">⏳ loading ⏳<br><span style="font-size:10px;opacity:.75;">Loading live catalogue…</span></div>';
+  if (!db) {
+    loadLocalDataFallback();
+    if (!rawCatalogData || Object.keys(rawCatalogData).length === 0) {
+      renderCatalogLoadError(new Error('Database connection is unavailable.'));
+    } else {
+      renderFilteredCatalog();
+    }
+    return;
+  }
+  try {
+    let found = null;
+    for (const path of ['catalog','catalogue','catalogue_items','products']) {
+      const snap = await db.ref(path).once('value');
+      const value = snap.val();
+      if (value && typeof value === 'object') { const normalized = normalizeCatalogValue(value); if (Object.keys(normalized).length) { found = normalized; break; } }
+    }
+    if (!found) throw new Error('No catalogue data found');
+    rawCatalogData = found;
+    try { localStorage.setItem('vadiraj_catalog_cache', JSON.stringify(found)); } catch(e) {}
+    renderFilteredCatalog();
+  } catch (err) {
+    console.error('Catalogue loading retry:', err);
+    loadLocalDataFallback();
+    if (!rawCatalogData || Object.keys(rawCatalogData).length === 0) renderCatalogLoadError(err);
+  }
+};
+
+let touchStartX = 0;
+window.handleTouchStart = function(e, carouselId) {
+  touchStartX = e.changedTouches[0].screenX;
+};
+window.handleTouchEnd = function(e, carouselId) {
+  let touchEndX = e.changedTouches[0].screenX;
+  let threshold = 40;
+  if (touchEndX < touchStartX - threshold) {
+    moveSlide(carouselId, 1);
+  } else if (touchEndX > touchStartX + threshold) {
+    moveSlide(carouselId, -1);
+  }
+};
+window.handleVideoEnded = function(videoElement) {
+  const carousel = videoElement.closest('.carousel-container');
+  if (!carousel) return;
+  let totalSlides = parseInt(carousel.getAttribute('data-total')) || 0;
+  if (totalSlides > 1) {
+    moveSlide(carousel.id, 1);
+  }
+};
+function renderFilteredCatalog() {
+  let container = document.getElementById('customerCatalogContainer');
+  if (!rawCatalogData) {
+    container.innerHTML = '<div class="catalog-loading-state" style="font-size:13px;color:var(--muted);text-align:center;padding:28px;">⏳ loading ⏳<br><span style="font-size:10px;opacity:.75;">Loading live catalogue…</span></div>';
+    return;
+  }
+  if (Object.keys(rawCatalogData).length === 0) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Catalogue is currently empty.</div>';
+    return;
+  }
+  let searchQuery = (document.getElementById('catalogSearchInput').value || '').toLowerCase().trim();
+  let purityFilter = document.getElementById('catalogPurityFilter').value;
+  let sortFilter = document.getElementById('catalogSortFilter').value;
+  let itemsArray = Object.keys(rawCatalogData).map(key => {
+    try {
+      let item = rawCatalogData[key];
+      if (!item || typeof item !== 'object') return null;
+      let purity = item.purity || '22K';
+      let weight = parseFloat(item.weight) || 0;
+      let wastage = parseFloat(item.wastage) || 8;
+      let making = parseFloat(item.making) || 250;
+      let baseRate10g = 0;
+      if (purity === 'Silver') {
+        baseRate10g = globalRates['silver_1kg'] / 100;
+      } else if (purity === '925 Silver') {
+        baseRate10g = globalRates['silver_925_1kg'] / 100;
+      } else {
+        baseRate10g = globalRates['24k_10g'];
+        if (purity === '22K') baseRate10g = baseRate10g * (22 / 24);
+        if (purity === '20K') baseRate10g = baseRate10g * (20 / 24);
+        if (purity === '18K') baseRate10g = baseRate10g * (18 / 24);
+      }
+      let ratePerGram = baseRate10g / 10;
+      let baseTotal = item.costType === 'flat' ? (parseFloat(item.flatPrice) || 0) : Math.round((weight * ratePerGram) * (1 + wastage / 100) + (weight * making));
+      let calculatedPrice = Math.round(baseTotal * 1.03) || 0;
+      let images = [];
+      if (Array.isArray(item.media) && item.media.length > 0) {
+        images = item.media.map(m => (typeof m === 'string' ? m : (m && m.url))).filter(Boolean);
+      } else if (Array.isArray(item.images) && item.images.length > 0) {
+        images = item.images.map(i => (typeof i === 'string' ? i : (i && i.url))).filter(Boolean);
+      } else if (item.image) {
+        images = [item.image];
+      }
+      return { key, ...item, images, calculatedPrice, purity };
+    } catch (itemErr) {
+      console.error('Catalog item skipped due to bad data (key: ' + key + '):', itemErr);
+      return null;
+    }
+  }).filter(Boolean);
+  if (searchQuery) itemsArray = itemsArray.filter(i => (i.title || '').toLowerCase().includes(searchQuery) || (i.desc || '').toLowerCase().includes(searchQuery));
+  if (purityFilter) itemsArray = itemsArray.filter(i => i.purity === purityFilter);
+  if (sortFilter === 'price_low') itemsArray.sort((a, b) => a.calculatedPrice - b.calculatedPrice);
+  else if (sortFilter === 'price_high') itemsArray.sort((a, b) => b.calculatedPrice - a.calculatedPrice);
+  else itemsArray.reverse();
+  if (itemsArray.length === 0) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No matching jewellery found.</div>';
+    return;
+  }
+  let totalInDb = Object.keys(rawCatalogData).length;
+  let countNoticeHtml = itemsArray.length < totalInDb ? `<div style="font-size:10px;color:var(--muted);text-align:center;padding:4px 0 10px;">Showing ${itemsArray.length} of ${totalInDb} items — some items were skipped due to invalid data.</div>` : '';
+  let html = '';
+  itemsArray.forEach(item => {
+   try {
+    let subtitle = item.costType === 'flat' ? `Flat Price (Incl. 3% GST): ₹${item.calculatedPrice.toLocaleString('en-IN')}` : `${item.purity} | ${item.weight}g (Incl. 3% GST)`;
+    let carouselId = 'carousel_' + item.key;
+    let slidesHtml = '', dotsHtml = '';
+    let safeTitle = (item.title || '18K Item').replace(/'/g, "\\'");
+    let firstSlideIsVideo = false;
+    if (item.images.length > 0) {
+      item.images.forEach((mediaSrc, idx) => {
+        let isVideo = mediaSrc.startsWith('data:video/') || mediaSrc.match(/\.(mp4|webm|quicktime)$/i);
+        if (idx === 0) firstSlideIsVideo = isVideo;
+        if (isVideo) {
+          slidesHtml += `<div class="carousel-slide" data-is-video="true"><video src="${mediaSrc}" muted playsinline onended="handleVideoEnded(this)" onclick="expandMedia('${mediaSrc}', '${safeTitle}')" style="max-width:100%; max-height:100%; object-fit:contain;"></video></div>`;
+        } else {
+          slidesHtml += `<div class="carousel-slide" data-is-video="false"><img src="${mediaSrc}" onclick="expandMedia('${mediaSrc}', '${safeTitle}')" alt="Item photo"></div>`;
+        }
+        dotsHtml += `<div class="dot ${idx === 0 ? 'active' : ''}" onclick="currentSlide('${carouselId}', ${idx})"></div>`;
+      });
+    } else {
+      slidesHtml = `<div class="carousel-slide" data-is-video="false"><div style="color:var(--muted); font-size:11px;">No Media Available</div></div>`;
+    }
+    let itemJsonStr = encodeURIComponent(JSON.stringify(item));
+    html += `
+      <div class="card" id="card_item_${item.key}">
+        <div style="font-weight:bold; font-size:13px; color:var(--text); margin-bottom:6px;">${item.title || '18K Item'}</div>
+        <div class="carousel-container" id="${carouselId}" data-index="0" data-total="${item.images.length}" data-is-video="${firstSlideIsVideo}" ontouchstart="handleTouchStart(event, '${carouselId}')" ontouchend="handleTouchEnd(event, '${carouselId}')">
+          <div class="carousel-track" style="width: ${Math.max(1, item.images.length) * 100}%; display: flex;">${slidesHtml}</div>
+          ${item.images.length > 1 ? `<button class="carousel-btn carousel-prev" onclick="moveSlide('${carouselId}', -1)" type="button">❮</button><button class="carousel-btn carousel-next" onclick="moveSlide('${carouselId}', 1)" type="button">❯</button><div class="carousel-dots">${dotsHtml}</div>` : ''}
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px; gap:6px;">
+          <div>
+            <div style="font-size:11px; color:var(--gold);">${subtitle}</div>
+            <div style="font-size:14px; font-weight:bold; color:var(--text); margin-top:2px;">₹${item.calculatedPrice.toLocaleString('en-IN')}</div>
+          </div>
+          <div style="display:flex; gap:4px;">
+            <button class="btn btn-secondary" style="width:auto; padding:8px 10px; font-size:11px; margin-top:0;" onclick="openAllInOneTryOn('${safeTitle}', '${itemJsonStr}')" type="button">✨ Try On</button>
+            <button class="btn" style="width:auto; padding:8px 12px; font-size:11px; margin-top:0;" onclick="openDesignSelectionForOrder('${safeTitle}', '${item.calculatedPrice}', '${itemJsonStr}')" type="button">Order Now</button>
+          </div>
+        </div>
+      </div>
+    `;
+   } catch (renderErr) {
+     console.error('Catalog item failed to render (key: ' + (item && item.key) + '):', renderErr);
+   }
+  });
+  container.innerHTML = countNoticeHtml + html;
+  setTimeout(updateVideoPlaybackStates, 100);
+}
+document.getElementById('catalogSearchInput').oninput = renderFilteredCatalog;
+document.getElementById('catalogPurityFilter').onchange = renderFilteredCatalog;
+document.getElementById('catalogSortFilter').onchange = renderFilteredCatalog;
+function drawImageWithTransparency(imgSrc, canvasEl) {
+  let ctx = canvasEl.getContext('2d');
+  let img = new Image();
+  img.crossOrigin = "anonymous";
+  img.onload = function() {
+    canvasEl.width = img.naturalWidth || img.width;
+    canvasEl.height = img.naturalHeight || img.height;
+    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+    ctx.drawImage(img, 0, 0);
+    try {
+      let imgData = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height);
+      let data = imgData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        let r = data[i], g = data[i + 1], b = data[i + 2];
+        if (r < 40 && g < 40 && b < 40) data[i + 3] = 0;
+      }
+      ctx.putImageData(imgData, 0, 0);
+    } catch (err) {
+      console.log("Canvas background removal CORS notice:", err);
+    }
+  };
+  img.src = imgSrc;
+}
+window.openAllInOneTryOn = function(title, itemJsonStr) {
+  let item = {};
+  try { item = JSON.parse(decodeURIComponent(itemJsonStr)); } catch(e) {}
+  activeTryOnItem = item;
+  let lowerTitle = title.toLowerCase();
+  if (lowerTitle.includes('necklace') || lowerTitle.includes('haram') || lowerTitle.includes('set')) {
+    activeTryOnCategory = 'Necklace';
+  } else if (lowerTitle.includes('watch') || lowerTitle.includes('clock')) {
+    activeTryOnCategory = 'Watch';
+  } else if (lowerTitle.includes('ring') || lowerTitle.includes('bracelet') || lowerTitle.includes('bangle')) {
+    activeTryOnCategory = 'Ring / Bracelet';
+  } else {
+    activeTryOnCategory = 'Earrings';
+  }
+  openTryOnStudio(title, itemJsonStr);
+};
+window.openTryOnStudio = function(title, itemJsonStr) {
+  let item = {};
+  try { item = JSON.parse(decodeURIComponent(itemJsonStr)); } catch(e) {}
+  document.getElementById('tryOnStudioHeader').innerText = `✨ Live Try-On: ${activeTryOnCategory}`;
+  document.getElementById('tryOnItemTitle').innerText = `${title} (${item.purity || '22K'} | ${item.weight || 0}g)`;
+  const catSelect = document.getElementById('tryOnCategorySelect');
+  catSelect.value = activeTryOnCategory;
+  catSelect.onchange = function() {
+    activeTryOnCategory = this.value;
+    setupCategoryLogic();
+  };
+  setupCategoryLogic();
+  activeTryOnScale = 1.0;
+  userManualOffsetX = 0;
+  userManualOffsetY = 0;
+  let imageList = [];
+  if (item.images && item.images.length > 0) {
+    imageList = item.images.filter(m => !m.startsWith('data:video/') && !m.match(/\.(mp4|webm|quicktime)$/i));
+  }
+  let leftImgSrc = imageList.length > 0 ? imageList[0] : '';
+  let rightImgSrc = imageList.length > 1 ? imageList[1] : leftImgSrc;
+  let leftCanvas = document.getElementById('tryOnLeftCanvas');
+  let rightCanvas = document.getElementById('tryOnRightCanvas');
+  if (leftImgSrc) {
+    drawImageWithTransparency(leftImgSrc, leftCanvas);
+    leftCanvas.parentElement.style.display = 'flex';
+  } else {
+    leftCanvas.parentElement.style.display = 'none';
+  }
+  if (rightImgSrc && activeTryOnCategory === 'Earrings') {
+    drawImageWithTransparency(rightImgSrc, rightCanvas);
+    rightCanvas.parentElement.style.display = 'flex';
+  } else {
+    rightCanvas.parentElement.style.display = (activeTryOnCategory === 'Watch' || activeTryOnCategory === 'Ring / Bracelet') ? 'none' : 'flex';
+  }
+  document.getElementById('tryOnModal').classList.add('active');
+  isTryOnActive = true;
+  hasInitializedSmoothing = false;
+  initMediaPipeTracking();
+};
+function nudgeOffset(dx, dy) {
+  userManualOffsetX += dx;
+  userManualOffsetY += dy;
+}
+function setupCategoryLogic() {
+  document.getElementById('tryOnStudioHeader').innerText = `✨ Live Try-On: ${activeTryOnCategory}`;
+  let rightCanvasBox = document.getElementById('tryOnRightEarring');
+  if (activeTryOnCategory === 'Watch' || activeTryOnCategory === 'Ring / Bracelet' || activeTryOnCategory === 'Necklace') {
+    rightCanvasBox.style.display = 'none';
+  } else {
+    rightCanvasBox.style.display = 'flex';
+  }
+}
+function initMediaPipeTracking() {
+  const videoElement = document.getElementById('tryOnWebcam');
+  if (!faceMeshInstance) {
+    faceMeshInstance = new FaceMesh({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+    });
+    faceMeshInstance.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.75,
+      minTrackingConfidence: 0.75
+    });
+    faceMeshInstance.onResults(onFaceMeshResults);
+  }
+  if (!handsInstance) {
+    handsInstance = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    });
+    handsInstance.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.75,
+      minTrackingConfidence: 0.75
+    });
+    handsInstance.onResults(onHandsResults);
+  }
+  if (!cameraInstance) {
+    cameraInstance = new Camera(videoElement, {
+      onFrame: async () => {
+        if (!isTryOnActive) return;
+        if (activeTryOnCategory === 'Watch' || activeTryOnCategory === 'Ring / Bracelet') {
+          if (handsInstance) await handsInstance.send({ image: videoElement });
+        } else {
+          if (faceMeshInstance) await faceMeshInstance.send({ image: videoElement });
+        }
+      },
+      width: 1280,
+      height: 720
+    });
+  }
+  cameraInstance.start().catch(err => {
+    console.log("Camera start error:", err);
+    alert('Could not start camera for AI tracking.');
+  });
+}
+function onFaceMeshResults(results) {
+  if (!isTryOnActive || activeTryOnCategory === 'Watch' || activeTryOnCategory === 'Ring / Bracelet') return;
+  let leftElement = document.getElementById('tryOnLeftEarring');
+  let rightElement = document.getElementById('tryOnRightEarring');
+  let manualScale = activeTryOnScale;
+  let screenHeight = leftElement.parentElement.clientHeight;
+  let transformBase = `translate(-50%, -50%) scaleX(-1)`;
+  if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
+    let landmarks = results.multiFaceLandmarks[0];
+    let screenWidth = leftElement.parentElement.clientWidth;
+    let leftTemple = landmarks[234];
+    let rightTemple = landmarks[454];
+    let currentFaceWidth = Math.abs(rightTemple.x - leftTemple.x) * screenWidth;
+    let baselineWidth = 180;
+    let globalItemScale = 1.0;
+    let autoScale = (currentFaceWidth / baselineWidth) * manualScale * globalItemScale;
+    autoScale = Math.min(Math.max(autoScale, 0.2), 4.0);
+    let baseSize = activeTryOnCategory === 'Necklace' ? Math.round(180 * autoScale) : Math.round(55 * autoScale);
+    if (activeTryOnCategory === 'Necklace') {
+      let chinPoint = landmarks[152] || landmarks[17];
+      let leftNeckAnchor = landmarks[234];
+      let rightNeckAnchor = landmarks[454];
+      if (chinPoint && leftNeckAnchor && rightNeckAnchor) {
+        let rawPosX = (1 - chinPoint.x) * screenWidth + userManualOffsetX;
+        let rawPosY = (chinPoint.y * screenHeight) + 30 + userManualOffsetY;
+        let dx = (1 - rightNeckAnchor.x) - (1 - leftNeckAnchor.x);
+        let dy = rightNeckAnchor.y - leftNeckAnchor.y;
+        let rawAngle = (Math.atan2(dy, dx) * (180 / Math.PI)) + 180;
+        if (!hasInitializedSmoothing) {
+          smoothedLeftX = rawPosX; smoothedLeftY = rawPosY; smoothedLeftAngle = rawAngle; smoothedLeftSize = baseSize;
+          hasInitializedSmoothing = true;
+        } else {
+          smoothedLeftX = smoothedLeftX * 0.80 + rawPosX * 0.20;
+          smoothedLeftY = smoothedLeftY * 0.80 + rawPosY * 0.20;
+          let angleDiff = rawAngle - smoothedLeftAngle;
+          while (angleDiff > 180) angleDiff -= 360;
+          while (angleDiff < -180) angleDiff += 360;
+          smoothedLeftAngle += angleDiff * 0.20;
+          smoothedLeftSize = smoothedLeftSize * 0.80 + baseSize * 0.20;
+        }
+        requestAnimationFrame(() => {
+          leftElement.style.width = `${Math.round(smoothedLeftSize)}px`;
+          leftElement.style.height = `${Math.round(smoothedLeftSize)}px`;
+          leftElement.style.left = `${smoothedLeftX}px`;
+          leftElement.style.top = `${smoothedLeftY}px`;
+          leftElement.style.transform = `${transformBase} rotate(${smoothedLeftAngle}deg)`;
+          leftElement.style.display = 'flex';
+          rightElement.style.display = 'none';
+        });
+        return;
+      }
+    } else {
+      let leftEarlobe = landmarks[177] || landmarks[138];
+      let rightEarlobe = landmarks[401] || landmarks[367];
+      let eyeLeft = landmarks[33];
+      let eyeRight = landmarks[263];
+      if (leftEarlobe && rightEarlobe && eyeLeft && eyeRight) {
+        let rawRightEarX = (1 - leftEarlobe.x) * screenWidth + userManualOffsetX;
+        let rawRightEarY = (leftEarlobe.y * screenHeight) + userManualOffsetY;
+        let rawLeftEarX = (1 - rightEarlobe.x) * screenWidth + userManualOffsetX;
+        let rawLeftEarY = (rightEarlobe.y * screenHeight) + userManualOffsetY;
+        let dx = eyeRight.x - eyeLeft.x;
+        let dy = eyeRight.y - eyeLeft.y;
+        let rawTiltAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+        if (!hasInitializedSmoothing) {
+          smoothedLeftX = rawLeftEarX; smoothedLeftY = rawLeftEarY; smoothedLeftAngle = rawTiltAngle; smoothedLeftSize = baseSize;
+          smoothedRightX = rawRightEarX; smoothedRightY = rawRightEarY; smoothedRightAngle = rawTiltAngle; smoothedRightSize = baseSize;
+          hasInitializedSmoothing = true;
+        } else {
+          smoothedLeftX = smoothedLeftX * 0.80 + rawLeftEarX * 0.20;
+          smoothedLeftY = smoothedLeftY * 0.80 + rawLeftEarY * 0.20;
+          smoothedLeftSize = smoothedLeftSize * 0.80 + baseSize * 0.20;
+          smoothedRightX = smoothedRightX * 0.80 + rawRightEarX * 0.20;
+          smoothedRightY = smoothedRightY * 0.80 + rawRightEarY * 0.20;
+          smoothedRightSize = smoothedRightSize * 0.80 + baseSize * 0.20;
+          let angleDiff = rawTiltAngle - smoothedLeftAngle;
+          while (angleDiff > 180) angleDiff -= 360;
+          while (angleDiff < -180) angleDiff += 360;
+          smoothedLeftAngle += angleDiff * 0.20;
+          smoothedRightAngle += angleDiff * 0.20;
+        }
+        requestAnimationFrame(() => {
+          leftElement.style.width = `${Math.round(smoothedLeftSize)}px`;
+          leftElement.style.height = `${Math.round(smoothedLeftSize)}px`;
+          leftElement.style.left = `${smoothedLeftX}px`;
+          leftElement.style.top = `${smoothedLeftY}px`;
+          leftElement.style.transform = `${transformBase} rotate(${smoothedLeftAngle}deg)`;
+          leftElement.style.display = 'flex';
+          rightElement.style.width = `${Math.round(smoothedRightSize)}px`;
+          rightElement.style.height = `${Math.round(smoothedRightSize)}px`;
+          rightElement.style.left = `${smoothedRightX}px`;
+          rightElement.style.top = `${smoothedRightY}px`;
+          rightElement.style.transform = `${transformBase} rotate(${smoothedRightAngle}deg)`;
+          rightElement.style.display = 'flex';
+        });
+        return;
+      }
+    }
+  }
+}
+function onHandsResults(results) {
+  if (!isTryOnActive || (activeTryOnCategory !== 'Watch' && activeTryOnCategory !== 'Ring / Bracelet')) return;
+  let leftElement = document.getElementById('tryOnLeftEarring');
+  let rightElement = document.getElementById('tryOnRightEarring');
+  let badgeLabel = document.getElementById('tryOnBadgeLabel');
+  let manualScale = activeTryOnScale;
+  let screenHeight = leftElement.parentElement.clientHeight;
+  let transformBase = `translate(-50%, -50%) scaleX(-1)`;
+  const SMOOTHING_FACTOR = 0.20;
+  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+    let hand = results.multiHandLandmarks[0];
+    let screenWidth = leftElement.parentElement.clientWidth;
+    if (activeTryOnCategory === 'Watch') {
+      let wrist = hand[0];
+      let indexKnuckle = hand[5];
+      let pinkyKnuckle = hand[17];
+      let palmWidth = Math.hypot((indexKnuckle.x - pinkyKnuckle.x) * screenWidth, (indexKnuckle.y - pinkyKnuckle.y) * screenHeight);
+      let autoScale = (palmWidth / 110) * manualScale * 1.1;
+      autoScale = Math.min(Math.max(autoScale, 0.3), 3.5);
+      let watchSize = Math.round(140 * autoScale);
+      let rawWristX = (1 - wrist.x) * screenWidth + userManualOffsetX;
+      let rawWristY = (wrist.y * screenHeight) + userManualOffsetY;
+      let middleKnuckle = hand[9];
+      let rawAngle = Math.atan2(middleKnuckle.y - wrist.y, middleKnuckle.x - wrist.x) * (180 / Math.PI) + 90;
+      if (!hasInitializedSmoothing) {
+        smoothedLeftX = rawWristX; smoothedLeftY = rawWristY; smoothedLeftAngle = rawAngle; smoothedLeftSize = watchSize;
+        hasInitializedSmoothing = true;
+      } else {
+        smoothedLeftX += (rawWristX - smoothedLeftX) * SMOOTHING_FACTOR;
+        smoothedLeftY += (rawWristY - smoothedLeftY) * SMOOTHING_FACTOR;
+        let angleDiff = rawAngle - smoothedLeftAngle;
+        while (angleDiff > 180) angleDiff -= 360;
+        while (angleDiff < -180) angleDiff += 360;
+        smoothedLeftAngle += angleDiff * SMOOTHING_FACTOR;
+        smoothedLeftSize += (watchSize - smoothedLeftSize) * SMOOTHING_FACTOR;
+      }
+      requestAnimationFrame(() => {
+        leftElement.style.width = `${Math.round(smoothedLeftSize)}px`;
+        leftElement.style.height = `${Math.round(smoothedLeftSize)}px`;
+        leftElement.style.left = `${smoothedLeftX}px`;
+        leftElement.style.top = `${smoothedLeftY}px`;
+        leftElement.style.transform = `${transformBase} rotate(${smoothedLeftAngle}deg)`;
+        leftElement.style.display = 'flex';
+        rightElement.style.display = 'none';
+        badgeLabel.innerText = '⌚ AI Wrist Auto-Mapping Active';
+      });
+      return;
+    } else if (activeTryOnCategory === 'Ring / Bracelet') {
+      let ringFingerBase = hand[13];
+      let ringFingerMiddle = hand[14];
+      let targetX = (ringFingerBase.x + ringFingerMiddle.x) / 2;
+      let targetY = (ringFingerBase.y + ringFingerMiddle.y) / 2;
+      let wrist = hand[0];
+      let middleKnuckle = hand[9];
+      let handSize = Math.hypot((middleKnuckle.x - wrist.x) * screenWidth, (middleKnuckle.y - wrist.y) * screenHeight);
+      let autoScale = (handSize / 140) * manualScale * 0.85;
+      autoScale = Math.min(Math.max(autoScale, 0.3), 2.5);
+      let ringSize = Math.round(65 * autoScale);
+      let rawRingX = (1 - targetX) * screenWidth + userManualOffsetX;
+      let rawRingY = (targetY * screenHeight) + userManualOffsetY;
+      let dx = ringFingerMiddle.x - ringFingerBase.x;
+      let dy = ringFingerMiddle.y - ringFingerBase.y;
+      let rawAngle = Math.atan2(dy, dx) * (180 / Math.PI) - 90;
+      if (!hasInitializedSmoothing) {
+        smoothedLeftX = rawRingX; smoothedLeftY = rawRingY; smoothedLeftAngle = rawAngle; smoothedLeftSize = ringSize;
+        hasInitializedSmoothing = true;
+      } else {
+        smoothedLeftX += (rawRingX - smoothedLeftX) * SMOOTHING_FACTOR;
+        smoothedLeftY += (rawRingY - smoothedLeftY) * SMOOTHING_FACTOR;
+        let angleDiff = rawAngle - smoothedLeftAngle;
+        while (angleDiff > 180) angleDiff -= 360;
+        while (angleDiff < -180) angleDiff += 360;
+        smoothedLeftAngle += angleDiff * SMOOTHING_FACTOR;
+        smoothedLeftSize += (ringSize - smoothedLeftSize) * SMOOTHING_FACTOR;
+      }
+      requestAnimationFrame(() => {
+        leftElement.style.width = `${Math.round(smoothedLeftSize)}px`;
+        leftElement.style.height = `${Math.round(smoothedLeftSize)}px`;
+        leftElement.style.left = `${smoothedLeftX}px`;
+        leftElement.style.top = `${smoothedLeftY}px`;
+        leftElement.style.transform = `${transformBase} rotate(${smoothedLeftAngle}deg)`;
+        leftElement.style.display = 'flex';
+        rightElement.style.display = 'none';
+        badgeLabel.innerText = '💍 AI Finger Ring Auto-Mapping Active';
+      });
+      return;
+    }
+  } else {
+    badgeLabel.innerText = '✋ Show Hand to Camera for Auto-Mapping';
+  }
+}
+document.getElementById('stopTryOnCameraBtn').onclick = closeTryOnStudioModal;
+document.getElementById('closeTryOnModalBtn').onclick = closeTryOnStudioModal;
+function closeTryOnStudioModal() {
+  isTryOnActive = false;
+  if (cameraInstance) {
+    cameraInstance.stop();
+    cameraInstance = null;
+  }
+  let videoEl = document.getElementById('tryOnWebcam');
+  if (videoEl.srcObject) {
+    videoEl.srcObject.getTracks().forEach(track => track.stop());
+    videoEl.srcObject = null;
+  }
+  document.getElementById('tryOnModal').classList.remove('active');
+}
+document.getElementById('tryOnProceedOrderBtn').onclick = function() {
+  if (!activeTryOnItem) return;
+  let title = activeTryOnItem.title || '18K Item';
+  let price = activeTryOnItem.calculatedPrice || 0;
+  let itemJsonStr = encodeURIComponent(JSON.stringify(activeTryOnItem));
+  closeTryOnStudioModal();
+  openDesignSelectionForOrder(title, price, itemJsonStr);
+};
+window.openDesignSelectionForOrder = function(title, price, itemJsonStr) {
+  let item = {};
+  try { item = JSON.parse(decodeURIComponent(itemJsonStr)); } catch(e) {}
+  activeDesignModalData = { title, price, item };
+  currentChosenMediaIndex = 0;
+  document.getElementById('designModalItemTitle').innerText = `${title} (${item.purity || '22K'} | ${item.weight || 0}g)`;
+  let choicesContainer = document.getElementById('designChoicesContainer');
+  choicesContainer.innerHTML = '';
+  if (item.images && item.images.length > 0) {
+    item.images.forEach((mediaSrc, idx) => {
+      let isVideo = mediaSrc.startsWith('data:video/') || mediaSrc.match(/\.(mp4|webm|quicktime)$/i);
+      let mediaPreviewHtml = isVideo ?
+        `<video src="${mediaSrc}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;" muted playsinline></video>` :
+        `<img src="${mediaSrc}" style="width:100%; height:110px; object-fit:cover; border-radius:6px;" alt="Var ${idx+1}">`;
+      let choiceCard = document.createElement('div');
+      choiceCard.style.cssText = `background:var(--input-bg); border:2px solid ${idx === 0 ? 'var(--gold)' : 'var(--border)'}; border-radius:8px; padding:6px; cursor:pointer; text-align:center; position:relative;`;
+      choiceCard.id = `design_choice_${idx}`;
+      choiceCard.innerHTML = `
+        ${mediaPreviewHtml}
+        <div style="font-size:11px; font-weight:bold; color:var(--gold); margin-top:4px;">Variation ${idx + 1}</div>
+      `;
+      choiceCard.onclick = () => {
+        document.querySelectorAll('[id^="design_choice_"]').forEach(el => el.style.border = '2px solid var(--border)');
+        choiceCard.style.border = '2px solid var(--gold)';
+        currentChosenMediaIndex = idx;
+      };
+      choicesContainer.appendChild(choiceCard);
+    });
+  } else {
+    choicesContainer.innerHTML = `<div style="grid-column:span 2; font-size:11px; color:var(--muted); text-align:center; padding:20px;">No media variants available.</div>`;
+  }
+  document.getElementById('designSelectionModal').classList.add('active');
+};
+document.getElementById('confirmDesignChoiceBtn').onclick = () => {
+  if (!activeDesignModalData) return;
+  let { title, price, item } = activeDesignModalData;
+  let chosenMedia = (item.images && item.images[currentChosenMediaIndex]) ? item.images[currentChosenMediaIndex] : '';
+  document.getElementById('designSelectionModal').classList.remove('active');
+  let itemDescInput = document.getElementById('orderItemDesc');
+  let orderTotalInput = document.getElementById('orderTotal');
+  let orderPaidInput = document.getElementById('orderPaid');
+  itemDescInput.value = `${title} (Var ${currentChosenMediaIndex + 1})`;
+  orderTotalInput.value = price;
+  orderPaidInput.value = price;
+  itemDescInput.readOnly = false;
+  orderTotalInput.readOnly = false;
+  orderPaidInput.readOnly = false;
+  let previewBox = document.getElementById('selectedVariantPreviewBox');
+  let previewMediaContainer = document.getElementById('selectedVariantMediaContainer');
+  let previewName = document.getElementById('selectedVariantName');
+  previewBox.style.display = 'block';
+  previewName.innerText = `${title} — Variation ${currentChosenMediaIndex + 1} (${item.purity || '22K'} | ${item.weight || 0}g)`;
+  if (chosenMedia) {
+    let isVideo = chosenMedia.startsWith('data:video/') || chosenMedia.match(/\.(mp4|webm|quicktime)$/i);
+    if (isVideo) {
+      previewMediaContainer.innerHTML = `<video src="${chosenMedia}" style="max-height:130px; border-radius:6px;" controls playsinline></video>`;
+    } else {
+      previewMediaContainer.innerHTML = `<img src="${chosenMedia}" style="max-height:130px; border-radius:6px; object-fit:contain;" alt="Selected Variant">`;
+    }
+  } else {
+    previewMediaContainer.innerHTML = '';
+  }
+  document.querySelectorAll('#customerTabsContainer .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#customerPortalWrapper .panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('[data-tab="custPayTab"]').classList.add('active');
+  document.getElementById('custPayTab').classList.add('active');
+  let message = `ಐಟಂ ಹೆಸರು: ${title} (Variation ${currentChosenMediaIndex + 1})\nಆರ್ಡರ್ ಮಾಡಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು ಆದರೆ ನೀವು ಮಾಡಿರುವ ಪೇಮೆಂಟ್ ಬಗ್ಗೆ ಸರಿಯಾದ ಮಾಹಿತಿಯನ್ನು ತೆಗೆದುಕೊಂಡು ಬರುವ 24 ಗಂಟೆಗಳಲ್ಲಿ ನಿಮ್ಮ ಆರ್ಡರ್ ಕನ್ಫರ್ಮ್ ಮಾಡುತ್ತೇವೆ ಒಂದು ವೇಳೆ ಹಣ ಬಾರದೆ ಇದ್ದಲ್ಲಿ ಆರ್ಡರ್ ಕ್ಯಾನ್ಸಲ್ ಮಾಡಲಾಗುವುದು\n\nಧನ್ಯವಾದಗಳು ಮತ್ತೆ ಭೇಟಿಯಾಗೋಣ`;
+  let whatsappUrl = `https://wa.me/919591828446?text=${encodeURIComponent(message)}`;
+  document.getElementById('returnOverlay').style.display = 'flex';
+  let tempLink = document.createElement('a');
+  tempLink.href = whatsappUrl;
+  tempLink.target = '_blank';
+  document.body.appendChild(tempLink);
+  tempLink.click();
+  document.body.removeChild(tempLink);
+};
+document.addEventListener("visibilitychange", function() {
+  if (document.visibilityState === "visible") {
+    let overlay = document.getElementById('returnOverlay');
+    if (overlay && overlay.style.display === 'flex') {
+      overlay.style.display = 'none';
+      if (typeof loadCustomerLedger === 'function') {
+        loadCustomerLedger();
+      }
+    }
+  }
+});
+window.moveSlide = function(carouselId, direction) {
+  const carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  let totalSlides = parseInt(carousel.getAttribute('data-total')) || 0;
+  if (totalSlides <= 1) return;
+  let currentIndex = parseInt(carousel.getAttribute('data-index')) || 0;
+  currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+  updateCarouselPosition(carousel, currentIndex);
+};
+window.currentSlide = function(carouselId, index) {
+  const carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+  updateCarouselPosition(carousel, index);
+};
+function updateVideoPlaybackStates() {
+  const carousels = document.querySelectorAll('.carousel-container');
+  carousels.forEach(carousel => {
+    let currentIndex = parseInt(carousel.getAttribute('data-index')) || 0;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    slides.forEach((slide, idx) => {
+      let videoEl = slide.querySelector('video');
+      if (videoEl) {
+        if (idx === currentIndex) {
+          videoEl.currentTime = 0;
+          videoEl.play().catch(err => console.log("Autoplay prevented:", err));
+        } else {
+          videoEl.pause();
+        }
+      }
+    });
+  });
+}
+function updateCarouselPosition(carousel, index) {
+  carousel.setAttribute('data-index', index);
+  const track = carousel.querySelector('.carousel-track');
+  if (track) track.style.transform = `translateX(-${index * 100}%)`;
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  if (slides[index]) {
+    let isVideoSlide = slides[index].getAttribute('data-is-video') === 'true';
+    carousel.setAttribute('data-is-video', isVideoSlide);
+  }
+  carousel.querySelectorAll('.dot').forEach((dot, idx) => {
+    if (idx === index) dot.classList.add('active'); else dot.classList.remove('active');
+  });
+  updateVideoPlaybackStates();
+}
+['calcPurity', 'calcWeight', 'calcWastage', 'calcMaking'].forEach(id => {
+  let el = document.getElementById(id);
+  if (el) el.oninput = calculateCost;
+});
+function calculateCost() {
+  const purityEl = document.getElementById('calcPurity');
+  const weightEl = document.getElementById('calcWeight');
+  const wastageEl = document.getElementById('calcWastage');
+  const makingEl = document.getElementById('calcMaking');
+  if (!purityEl || !weightEl || !wastageEl || !makingEl) return;
+
+  const purity = purityEl.value;
+  const weight = Math.max(0, parseFloat(weightEl.value) || 0);
+  const wastagePct = Math.max(0, parseFloat(wastageEl.value) || 0);
+  const makingPerGram = Math.max(0, parseFloat(makingEl.value) || 0);
+
+  let baseRate10g = 0;
+  if (purity === 'Silver') {
+    baseRate10g = (globalRates['silver_1kg'] || 0) / 100;
+  } else if (purity === '925 Silver') {
+    baseRate10g = (globalRates['silver_925_1kg'] || 0) / 100;
+  } else {
+    baseRate10g = globalRates['24k_10g'] || 0;
+    if (purity === '22K') baseRate10g *= 22 / 24;
+    if (purity === '20K') baseRate10g *= 20 / 24;
+    if (purity === '18K') baseRate10g *= 18 / 24;
+  }
+
+  const ratePerGram = baseRate10g / 10;
+  const metalValue = weight * ratePerGram;
+  const wastageValue = metalValue * (wastagePct / 100);
+  const makingValue = weight * makingPerGram;
+  const subtotal = metalValue + wastageValue + makingValue;
+  const gst = subtotal * 0.03;
+  const grandTotal = Math.round(subtotal + gst);
+
+  const rateEl = document.getElementById('calcUnitRateDisplay');
+  const resultEl = document.getElementById('calcResult');
+  if (rateEl) rateEl.innerText = `₹${Math.round(ratePerGram).toLocaleString('en-IN')} / g`;
+  if (resultEl) resultEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+}
+
+function setInvoiceMode(mode) { invoiceMode = 'new'; loadedExistingInvoice = null; }
+
+function applyLoadedInvoiceRecordToForm(record) {
+  let status = document.getElementById('existingInvoiceStatus');
+  let grandTotalNum = record.grandTotalNum !== undefined ? record.grandTotalNum : parseRupeeToNumber(record.grandTotal);
+  let advancePaidNum = record.advancePaidNum !== undefined ? record.advancePaidNum : parseRupeeToNumber(record.advancePaid);
+  let existingBalance = Math.max(0, grandTotalNum - advancePaidNum);
+
+  // This invoice is already fully paid — there's nothing left to collect on
+  // it. If the customer is here for a NEW/different item, that's a fresh
+  // sale, not a payment on this old invoice. Guide the staff there instead
+  // of letting them "add payment" to a closed invoice.
+  if (existingBalance <= 0) {
+    status.innerHTML = `<span style="color:var(--green); font-weight:bold;">✔ ${record.invNumber} ಈಗಾಗಲೇ ಪೂರ್ಣ ಪಾವತಿ (Fully Paid) ಆಗಿದೆ.</span><br><span style="color:var(--muted);">ಈ ಕಸ್ಟಮರ್ ಬೇರೆ/ಹೊಸ ಐಟಂ ತಗೊಳ್ಳುತ್ತಿದ್ದರೆ, ಕೆಳಗಿನ ಬಟನ್ ಒತ್ತಿ ಹೊಸ ಇನ್ವಾಯ್ಸ್ ಶುರು ಮಾಡಿ.</span>`;
+    document.getElementById('existingInvoicePickerList').innerHTML =
+      `<button type="button" class="btn" id="startNewSaleForCustomerBtn">🆕 New Sale — ${record.custName || 'this customer'}</button>`;
+    document.getElementById('startNewSaleForCustomerBtn').onclick = () => {
+      setInvoiceMode('new');
+      document.getElementById('calcCustomerName').value = record.custName || '';
+      document.getElementById('calcCustomerPhone').value = record.custPhone || '';
+      showPreviousPurchasesForNewSale();
+    };
+    loadedExistingInvoice = null;
+    return;
+  }
+
+  // Back-compat: older records may only have formatted strings, not raw numbers.
+  loadedExistingInvoice = {
+    invNumber: record.invNumber,
+    custName: record.custName,
+    custPhone: record.custPhone,
+    itemDesc: record.itemDesc,
+    purity: record.purity,
+    weight: record.weight,
+    ratePerGram: record.ratePerGram,
+    wastage: record.wastage,
+    making: record.making,
+    subtotal: record.subtotal,
+    gst: record.gst,
+    grandTotalNum,
+    advancePaidNum,
+    ratePerGramNum: record.ratePerGramNum !== undefined ? record.ratePerGramNum : parseRupeeToNumber(record.ratePerGram),
+    date: record.date,
+    paymentHistory: Array.isArray(record.paymentHistory) ? record.paymentHistory : []
+  };
+  document.getElementById('calcCustomerName').value = record.custName || '';
+  document.getElementById('calcCustomerPhone').value = record.custPhone || '';
+  document.getElementById('calcItemName').value = record.itemDesc || '';
+  ['calcCustomerName', 'calcCustomerPhone', 'calcItemName', 'calcPurity', 'calcWeight', 'calcWastage', 'calcMaking'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.disabled = true;
+  });
+  status.innerHTML = `<span style="color:var(--green); font-weight:bold;">✔ Loaded ${record.invNumber}</span>`;
+  document.getElementById('existingInvoicePickerList').innerHTML = '';
+  let prevSummary = document.getElementById('previousPaymentSummary');
+  prevSummary.style.display = 'block';
+  prevSummary.innerText = `Grand Total: ₹${grandTotalNum.toLocaleString('en-IN')} | Already Paid: ₹${advancePaidNum.toLocaleString('en-IN')} | Balance Before This Payment: ₹${existingBalance.toLocaleString('en-IN')}`;
+  document.getElementById('calcAdvancePaid').value = 0;
+  calculateCost();
+}
+function loadInvoiceByNumberForForm(invNumber) {
+  let status = document.getElementById('existingInvoiceStatus');
+  let safeKey = invNumber.replace(/[.#$\[\]\/]/g, '_');
+  status.innerText = 'Loading…';
+  db.ref('invoices/' + safeKey).once('value').then(snapshot => {
+    let record = snapshot.val();
+    if (!record) { status.innerText = 'No invoice found with that number.'; loadedExistingInvoice = null; return; }
+    applyLoadedInvoiceRecordToForm(record);
+  }).catch(err => {
+    console.error('Existing invoice load error:', err);
+    status.innerText = 'Search failed. Please try again.';
+  });
+}
+function isLikelyPhoneNumber(raw) {
+  let digits = raw.replace(/\D/g, '');
+  return digits.length >= 10 && !/INV/i.test(raw);
+}
+function loadExistingInvoiceForPayment() {
+  if (!requireStaffPin('load an existing invoice for a follow-up payment')) return;
+  let rawQuery = document.getElementById('existingInvoiceNumberInput').value.trim();
+  let status = document.getElementById('existingInvoiceStatus');
+  let picker = document.getElementById('existingInvoicePickerList');
+  picker.innerHTML = '';
+  if (!rawQuery) { status.innerText = 'Enter an invoice number or phone number first.'; return; }
+  if (!db) { status.innerText = 'Database connection offline.'; return; }
+
+  if (isLikelyPhoneNumber(rawQuery)) {
+    // Phone number entered: look up everything on file for that customer,
+    // then either load their one invoice directly or let staff pick which
+    // invoice this new payment belongs to.
+    status.innerText = 'Looking up customer…';
+    lookupCustomerByPhone(rawQuery, custRecord => {
+      if (!custRecord || !Array.isArray(custRecord.invoiceNumbers) || !custRecord.invoiceNumbers.length) {
+        status.innerText = 'No existing invoice found for this phone number. Use "New Sale" instead.';
+        loadedExistingInvoice = null;
+        return;
+      }
+      if (custRecord.invoiceNumbers.length === 1) {
+        loadInvoiceByNumberForForm(custRecord.invoiceNumbers[0]);
+        return;
+      }
+      // Multiple past invoices for this customer — let staff pick the right one.
+      status.innerHTML = `<span style="color:var(--gold); font-weight:bold;">${custRecord.name || 'Customer'} has ${custRecord.invoiceNumbers.length} invoices on file — pick one:</span>`;
+      Promise.all(custRecord.invoiceNumbers.map(num =>
+        db.ref('invoices/' + num.replace(/[.#$\[\]\/]/g, '_')).once('value').then(s => s.val())
+      )).then(records => {
+        picker.innerHTML = records.filter(Boolean).map(r => {
+          let bal = Math.max(0, (r.grandTotalNum !== undefined ? r.grandTotalNum : parseRupeeToNumber(r.grandTotal)) - (r.advancePaidNum !== undefined ? r.advancePaidNum : parseRupeeToNumber(r.advancePaid)));
+          let balLabel = bal > 0 ? `Balance: ₹${bal.toLocaleString('en-IN')}` : 'Fully Paid ✔';
+          return `<button type="button" class="btn btn-secondary" style="text-align:left; margin-top:6px;" data-invnum="${r.invNumber}">${r.invNumber} — ${r.itemDesc} (${balLabel})</button>`;
+        }).join('');
+        picker.querySelectorAll('button[data-invnum]').forEach(btn => {
+          btn.onclick = () => loadInvoiceByNumberForForm(btn.getAttribute('data-invnum'));
+        });
+      });
+    });
+  } else {
+    loadInvoiceByNumberForForm(rawQuery.toUpperCase());
+  }
+}
+
+let calcItemPhotoDataUrl = '';
+function clearCalcItemPhoto() {
+  calcItemPhotoDataUrl = '';
+  const input = document.getElementById('calcItemPhoto');
+  const preview = document.getElementById('calcItemPhotoPreview');
+  const img = document.getElementById('calcItemPhotoPreviewImg');
+  if (input) input.value = '';
+  if (img) img.src = '';
+  if (preview) preview.style.display = 'none';
+}
+const calcItemPhotoInput = document.getElementById('calcItemPhoto');
+if (calcItemPhotoInput) {
+  calcItemPhotoInput.addEventListener('change', function () {
+    const file = this.files && this.files[0];
+    if (!file) {
+      clearCalcItemPhoto();
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file.');
+      clearCalcItemPhoto();
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      calcItemPhotoDataUrl = e.target.result;
+      const preview = document.getElementById('calcItemPhotoPreview');
+      const img = document.getElementById('calcItemPhotoPreviewImg');
+      if (img) img.src = calcItemPhotoDataUrl;
+      if (preview) preview.style.display = 'block';
+    };
+    reader.onerror = function () {
+      alert('Could not read the item photo.');
+      clearCalcItemPhoto();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+const removeCalcItemPhotoBtn = document.getElementById('removeCalcItemPhotoBtn');
+if (removeCalcItemPhotoBtn) {
+  removeCalcItemPhotoBtn.addEventListener('click', clearCalcItemPhoto);
+}
+function populateInvoiceFields() {
+  let custName, custPhone, itemName, purity, weight, wastage, making, ratePerGram, baseVal, addVal, subVal, gstVal, grandVal, totalPaid, invoiceNumberToUse;
+
+  if (invoiceMode === 'existing' && loadedExistingInvoice) {
+    // Follow-up payment on a previously generated invoice: item/price details
+    // are locked to what was originally billed, and we reuse the SAME invoice
+    // number so this overwrites/updates that invoice's record instead of
+    // creating a brand-new one.
+    custName = loadedExistingInvoice.custName || 'Customer';
+    custPhone = loadedExistingInvoice.custPhone || '';
+    itemName = loadedExistingInvoice.itemDesc || '';
+    purity = loadedExistingInvoice.purity || '';
+    weight = loadedExistingInvoice.weight || '';
+    ratePerGram = loadedExistingInvoice.ratePerGramNum || 0;
+    wastage = parseFloat(loadedExistingInvoice.wastage) || 0;
+    making = loadedExistingInvoice.making || '₹0 / g';
+    subVal = loadedExistingInvoice.grandTotalNum - parseRupeeToNumber(loadedExistingInvoice.gst);
+    gstVal = parseRupeeToNumber(loadedExistingInvoice.gst);
+    baseVal = parseRupeeToNumber(loadedExistingInvoice.subtotal); // best-effort display carry-over
+    addVal = subVal - baseVal;
+    grandVal = loadedExistingInvoice.grandTotalNum;
+    let paymentNow = parseFloat(document.getElementById('calcAdvancePaid').value) || 0;
+    totalPaid = (loadedExistingInvoice.advancePaidNum || 0) + paymentNow;
+    invoiceNumberToUse = loadedExistingInvoice.invNumber;
+  } else {
+    custName = document.getElementById('calcCustomerName').value.trim() || 'Ramesh Kumar';
+    custPhone = document.getElementById('calcCustomerPhone').value.trim() || '9876543210';
+    itemName = document.getElementById('calcItemName').value.trim() || '22K Gold Jewellery';
+    purity = document.getElementById('calcPurity').value;
+    weight = parseFloat(document.getElementById('calcWeight').value) || 0;
+    wastage = parseFloat(document.getElementById('calcWastage').value) || 0;
+    making = parseFloat(document.getElementById('calcMaking').value) || 0;
+    totalPaid = parseFloat(document.getElementById('calcAdvancePaid').value) || 0;
+    let baseRate10g = 0;
+    if (purity === 'Silver') baseRate10g = globalRates['silver_1kg'] / 100;
+    else if (purity === '925 Silver') baseRate10g = globalRates['silver_925_1kg'] / 100;
+    else {
+      baseRate10g = globalRates['24k_10g'];
+      if (purity === '22K') baseRate10g = baseRate10g * (22 / 24);
+      if (purity === '20K') baseRate10g = baseRate10g * (20 / 24);
+      if (purity === '18K') baseRate10g = baseRate10g * (18 / 24);
+    }
+    ratePerGram = baseRate10g / 10;
+    baseVal = weight * ratePerGram;
+    addVal = (baseVal * (wastage / 100)) + (weight * making);
+    subVal = baseVal + addVal;
+    gstVal = subVal * 0.03;
+    grandVal = Math.round(subVal + gstVal);
+    weight = weight + ' g';
+    making = '₹' + making + ' / g';
+    invoiceNumberToUse = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+  }
+
+  let balanceDueVal = Math.max(0, grandVal - totalPaid);
+  document.getElementById('invCustName').innerText = custName;
+  document.getElementById('invCustPhone').innerText = custPhone;
+  document.getElementById('invItemDesc').innerText = itemName;
+  document.getElementById('invPurity').innerText = purity;
+  document.getElementById('invWeight').innerText = typeof weight === 'string' ? weight : weight + ' g';
+  document.getElementById('invRatePerGram').innerText = '₹' + Math.round(ratePerGram).toLocaleString('en-IN');
+  document.getElementById('invItemTotal').innerText = '₹' + Math.round(subVal).toLocaleString('en-IN');
+  document.getElementById('invWastageDisplay').innerText = wastage + '%';
+  document.getElementById('invMakingDisplay').innerText = typeof making === 'string' ? making : '₹' + making + ' / g';
+  document.getElementById('invBaseValue').innerText = '₹' + Math.round(baseVal).toLocaleString('en-IN');
+  document.getElementById('invAdditions').innerText = '₹' + Math.round(addVal).toLocaleString('en-IN');
+  document.getElementById('invSubtotal').innerText = '₹' + Math.round(subVal).toLocaleString('en-IN');
+  document.getElementById('invGst').innerText = '₹' + Math.round(gstVal).toLocaleString('en-IN');
+  document.getElementById('invGrandTotal').innerText = '₹' + grandVal.toLocaleString('en-IN');
+  document.getElementById('invAdvancePaid').innerText = '₹' + totalPaid.toLocaleString('en-IN');
+  document.getElementById('invBalanceDue').innerText = '₹' + balanceDueVal.toLocaleString('en-IN');
+
+  // Store raw numeric values on the DOM node so saveInvoiceRecord() can persist
+  // them without re-parsing formatted currency strings later.
+  const template = document.getElementById('invoiceTemplateContainer');
+  template.dataset.grandTotalNum = grandVal;
+  template.dataset.advancePaidNum = totalPaid;
+  template.dataset.balanceDueNum = balanceDueVal;
+  template.dataset.ratePerGramNum = Math.round(ratePerGram);
+
+  // Professional delivery stamp: appears only when the entered payment covers
+  // the complete invoice total, AND only after staff-PIN verified generation.
+  // It is part of the invoice itself, so it also appears in the PDF/print
+  // output and in the preview.
+  const paidStamp = document.getElementById('invPaidDeliveryStamp');
+  const isPaidInFull = grandVal > 0 && balanceDueVal === 0 && totalPaid >= grandVal;
+  if (paidStamp) {
+    paidStamp.classList.toggle('show', isPaidInFull);
+    paidStamp.setAttribute('data-payment-status', isPaidInFull ? 'paid' : 'unpaid');
+  }
+
+  const invPhotoBox = document.getElementById('invItemPhotoBox');
+  const invPhoto = document.getElementById('invItemPhoto');
+  if (invPhotoBox && invPhoto) {
+    if (calcItemPhotoDataUrl) {
+      invPhoto.src = calcItemPhotoDataUrl;
+      invPhotoBox.style.display = 'block';
+    } else {
+      invPhoto.src = '';
+      invPhotoBox.style.display = 'none';
+    }
+  }
+  const generatedInvoiceDate = 'Date: ' + new Date().toLocaleDateString();
+  document.getElementById('invNumber').innerText = invoiceNumberToUse;
+  document.getElementById('invDate').innerText = generatedInvoiceDate;
+  const stampInvoiceFinal = document.getElementById('invStampInvoice');
+  const stampDateFinal = document.getElementById('invStampDate');
+  if (stampInvoiceFinal) stampInvoiceFinal.innerText = 'Invoice: ' + invoiceNumberToUse;
+  if (stampDateFinal) stampDateFinal.innerText = generatedInvoiceDate;
+}
+function scaleInvoicePreview() {
+  let viewport = document.getElementById('invoicePreviewViewport');
+  let clone = document.getElementById('invoicePreviewClone');
+  if (!viewport || !clone) return;
+  let availableWidth = viewport.clientWidth;
+  let scale = Math.min(1, availableWidth / 700);
+  clone.style.transform = `scale(${scale})`;
+  clone.style.transformOrigin = 'top left';
+  viewport.style.height = Math.round(clone.scrollHeight * scale) + 'px';
+}
+function closeInvoicePreview() {
+  document.getElementById('invoicePreviewModal').classList.remove('active');
+}
+
+const _oldConfirmDownloadInvoiceHandler = async () => {
+  const element = document.getElementById('invoiceTemplateContainer');
+  const button = document.getElementById('confirmDownloadInvoiceBtn');
+  const previousText = button ? button.innerHTML : '';
+  if (button) { button.disabled = true; button.innerHTML = '⏳ Creating PDF…'; }
+  element.style.display = 'block';
+  element.style.position = 'fixed';
+  element.style.left = '0';
+  element.style.top = '0';
+  element.style.zIndex = '1';
+  element.style.width = '700px';
+  try {
+    // Wait for invoice images (including uploaded item photo) to finish loading.
+    const images = Array.from(element.querySelectorAll('img'));
+    await Promise.all(images.map(img => img.complete ? Promise.resolve() : new Promise(resolve => {
+      img.onload = resolve; img.onerror = resolve;
+    })));
+    // Force the paid stamp/footer layout to settle before html2canvas captures it.
+    const stampForPdf = document.getElementById('invPaidDeliveryStamp');
+    if (stampForPdf && stampForPdf.classList.contains('show')) {
+      void stampForPdf.offsetHeight;
+    }
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    if (typeof html2pdf === 'undefined') throw new Error('PDF library failed to load');
+    const filename = 'Vadiraj-Jewellers-Invoice-' + (document.getElementById('invNumber')?.innerText || 'Invoice').replace(/[^a-zA-Z0-9_-]/g, '') + '.pdf';
+    const options = {
+      margin: [8, 8, 8, 8],
+      filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false, scrollX: 0, scrollY: 0, windowWidth: 700 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'] }
+    };
+    const worker = html2pdf().set(options).from(element);
+    const canvasCheck = await worker.toCanvas();
+    const ctx = canvasCheck.canvas.getContext('2d');
+    const pixelData = ctx.getImageData(0, 0, canvasCheck.canvas.width, canvasCheck.canvas.height).data;
+    let hasContent = false;
+    for (let i = 0; i < pixelData.length; i += 4) {
+      // any pixel that isn't pure white means real content was captured
+      if (pixelData[i] !== 255 || pixelData[i + 1] !== 255 || pixelData[i + 2] !== 255) { hasContent = true; break; }
+    }
+    if (!hasContent) throw new Error('Captured canvas was blank');
+    await worker.toPdf().save();
+    saveInvoiceRecord();
+  } catch (err) {
+    console.error('Invoice PDF error:', err);
+    // Reliable fallback: open the browser print dialog if PDF generation is blocked or produced a blank capture.
+    document.body.classList.add('print-invoice-mode');
+    window.print();
+    setTimeout(() => document.body.classList.remove('print-invoice-mode'), 1000);
+    saveInvoiceRecord();
+  } finally {
+    element.style.display = 'none';
+    element.style.position = '';
+    element.style.left = '';
+    element.style.top = '';
+    element.style.zIndex = '';
+    element.style.width = '';
+    if (button) { button.disabled = false; button.innerHTML = previousText || '🖨️ Print / Save PDF'; }
+  }
+};
+function saveInvoiceRecord() {
+  if (!db) return;
+  let invNumber = (document.getElementById('invNumber')?.innerText || '').trim();
+  if (!invNumber) return;
+  let safeKey = invNumber.replace(/[.#$\[\]\/]/g, '_');
+  const template = document.getElementById('invoiceTemplateContainer');
+  let record = {
+    invNumber,
+    custName: document.getElementById('invCustName').innerText,
+    custPhone: document.getElementById('invCustPhone').innerText,
+    itemDesc: document.getElementById('invItemDesc').innerText,
+    purity: document.getElementById('invPurity').innerText,
+    weight: document.getElementById('invWeight').innerText,
+    ratePerGram: document.getElementById('invRatePerGram').innerText,
+    wastage: document.getElementById('invWastageDisplay').innerText,
+    making: document.getElementById('invMakingDisplay').innerText,
+    subtotal: document.getElementById('invSubtotal').innerText,
+    gst: document.getElementById('invGst').innerText,
+    grandTotal: document.getElementById('invGrandTotal').innerText,
+    advancePaid: document.getElementById('invAdvancePaid').innerText,
+    balanceDue: document.getElementById('invBalanceDue').innerText,
+    date: document.getElementById('invDate').innerText,
+    // Raw numbers, kept alongside the formatted strings above, so a later
+    // "add payment" lookup can do exact math instead of re-parsing ₹ strings.
+    grandTotalNum: parseFloat(template?.dataset.grandTotalNum) || 0,
+    advancePaidNum: parseFloat(template?.dataset.advancePaidNum) || 0,
+    balanceDueNum: parseFloat(template?.dataset.balanceDueNum) || 0,
+    ratePerGramNum: parseFloat(template?.dataset.ratePerGramNum) || 0,
+    paymentHistory: (loadedExistingInvoice && loadedExistingInvoice.paymentHistory) ? loadedExistingInvoice.paymentHistory : [],
+    deviceUuid,
+    timestamp: Date.now()
+  };
+  record.paymentHistory = record.paymentHistory.concat([{
+    amount: parseFloat(template?.dataset.advancePaidNum) - (loadedExistingInvoice ? loadedExistingInvoice.advancePaidNum : 0),
+    runningTotalPaid: parseFloat(template?.dataset.advancePaidNum) || 0,
+    date: new Date().toLocaleString(),
+    recordedBy: 'staff-pin-verified'
+  }]);
+  db.ref('invoices/' + safeKey).set(record).catch(err => {
+    console.error('Invoice save error:', err);
+  });
+  upsertCustomerDirectory(record.custPhone, record.custName, { invoiceNumber: record.invNumber });
+}
+function renderInvoiceSearchResult(record) {
+  let container = document.getElementById('invoiceSearchResultContainer');
+  if (!record) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No invoice found with that number.</div>';
+    return;
+  }
+  container.innerHTML = `
+    <div class="item-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <b style="color:var(--gold); font-size:13px;">${record.invNumber}</b>
+        <span style="font-size:10px; color:var(--muted);">${record.date || ''}</span>
+      </div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Customer:</b> ${record.custName} (${record.custPhone})</div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Item:</b> ${record.itemDesc} — ${record.purity}, ${record.weight}</div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Rate/g:</b> ${record.ratePerGram} | <b>Wastage:</b> ${record.wastage} | <b>Making:</b> ${record.making}</div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Subtotal:</b> ${record.subtotal} | <b>GST:</b> ${record.gst}</div>
+      <div style="font-size:13px; color:var(--gold); font-weight:bold; margin-bottom:2px;"><b>Grand Total:</b> ${record.grandTotal}</div>
+      <div style="font-size:12px; color:var(--text); margin-bottom:2px;"><b>Total Paid:</b> ${record.advancePaid}</div>
+      <div style="font-size:13px; color:var(--red); font-weight:bold; margin-bottom:6px;"><b>Balance Due:</b> ${record.balanceDue}</div>
+      ${Array.isArray(record.paymentHistory) && record.paymentHistory.length ? `
+        <div style="border-top:1px dashed var(--border); padding-top:6px; margin-top:4px;">
+          <div style="font-size:10px; color:var(--muted); text-transform:uppercase; margin-bottom:4px;">Payment History</div>
+          ${record.paymentHistory.map(p => `<div style="font-size:11px; color:var(--muted);">₹${(p.amount || 0).toLocaleString('en-IN')} on ${p.date} (running total ₹${(p.runningTotalPaid || 0).toLocaleString('en-IN')})</div>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+function searchInvoiceByNumber() {
+  let rawQuery = document.getElementById('invoiceSearchInput').value.trim().toUpperCase();
+  let container = document.getElementById('invoiceSearchResultContainer');
+  if (!rawQuery) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Enter an invoice number above to look it up.</div>';
+    return;
+  }
+  if (!db) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Database connection offline.</div>';
+    return;
+  }
+  let safeKey = rawQuery.replace(/[.#$\[\]\/]/g, '_');
+  container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Searching…</div>';
+  db.ref('invoices/' + safeKey).once('value').then(snapshot => {
+    renderInvoiceSearchResult(snapshot.val());
+  }).catch(err => {
+    console.error('Invoice search error:', err);
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Search failed. Please try again.</div>';
+  });
+}
+document.getElementById('invoiceSearchBtn').onclick = searchInvoiceByNumber;
+document.getElementById('invoiceSearchInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') searchInvoiceByNumber();
+});
+if (document.getElementById('customerDirectorySearchBtn')) {
+  document.getElementById('customerDirectorySearchBtn').onclick = searchCustomerDirectory;
+  document.getElementById('customerDirectorySearchInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') searchCustomerDirectory();
+  });
+}
+wireAutofillOnPhone('calcCustomerPhone', 'calcCustomerName');
+const calcCustomerPhoneEl = document.getElementById('calcCustomerPhone');
+if (calcCustomerPhoneEl) calcCustomerPhoneEl.addEventListener('blur', showPreviousPurchasesForNewSale);
+wireAutofillOnPhone('orderPhone', 'orderName');
+function loadCustomerLedger() {
+  let container = document.getElementById('customerLedgerContainer');
+  if (!db) {
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Database connection offline.</div>';
+    return;
+  }
+  db.ref('orders').orderByChild('deviceUuid').equalTo(deviceUuid).once('value').then(snapshot => {
+    let ordersObj = snapshot.val();
+    if (!ordersObj) {
+      container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No past orders found.</div>';
+      return;
+    }
+    let html = '';
+    Object.keys(ordersObj).forEach(key => {
+      let order = ordersObj[key];
+      let statusClass = 'badge-pending';
+      if (order.status === 'Verified' || order.status === 'Confirmed') statusClass = 'badge-verified';
+      else if (order.status === 'Rejected') statusClass = 'badge-rejected';
+      html += `
+        <div class="item-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <b style="color:var(--gold); font-size:12px;">${order.orderId}</b>
+            <span class="badge ${statusClass}">${order.status}</span>
+          </div>
+          <div style="font-size:11px; color:var(--text); margin-bottom:2px;"><b>Item:</b> ${order.itemDesc || order.orderType}</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:2px;"><b>Total:</b> ₹${order.total} | <b>Paid:</b> ₹${order.paid}</div>
+          <div style="font-size:10px; color:var(--muted);"><b>Date:</b> ${order.date || new Date(order.timestamp).toLocaleString()}</div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }).catch(err => {
+    console.error("Ledger load error:", err);
+    container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">Failed to load orders.</div>';
+  });
+}
+/* ================= GOOGLE SIGN-IN (account picker, no password entry) ================= */
+var currentUser = null;
+function initGoogleSignIn() {
+  if (!(typeof firebase !== 'undefined' && firebase.auth)) {
+    console.warn('Firebase Auth SDK not available; sign-in disabled.');
+    return;
+  }
+  const auth = firebase.auth();
+  const gate = document.getElementById('signInGate');
+  const badge = document.getElementById('userBadge');
+  const badgeImg = document.getElementById('userBadgeImg');
+  const badgeFallback = document.getElementById('userBadgeFallback');
+  const menu = document.getElementById('userMenu');
+  const menuName = document.getElementById('userMenuName');
+  const menuEmail = document.getElementById('userMenuEmail');
+  const signInBtn = document.getElementById('googleSignInBtn');
+  const signOutBtn = document.getElementById('userSignOutBtn');
+  const errorBox = document.getElementById('signInError');
+  const loadingBox = document.getElementById('signInLoading');
+  if (!gate || !signInBtn) return;
+
+  auth.onAuthStateChanged(user => {
+    currentUser = user;
+    if (user) {
+      gate.classList.remove('show');
+      badge.classList.add('show');
+      menuName.textContent = user.displayName || 'Signed in';
+      menuEmail.textContent = user.email || '';
+      if (user.photoURL) {
+        badgeImg.src = user.photoURL;
+        badgeImg.style.display = 'block';
+        badgeFallback.style.display = 'none';
+      } else {
+        badgeImg.style.display = 'none';
+        badgeFallback.style.display = 'flex';
+        badgeFallback.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+      }
+      if ((!rawCatalogData || Object.keys(rawCatalogData).length === 0) && typeof window.retryCatalogueLoad === 'function') {
+        window.retryCatalogueLoad();
+      }
+    } else {
+      gate.classList.add('show');
+      badge.classList.remove('show');
+      menu.classList.remove('show');
+    }
+  });
+
+  signInBtn.onclick = () => {
+    errorBox.style.display = 'none';
+    loadingBox.style.display = 'block';
+    signInBtn.style.display = 'none';
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    auth.signInWithPopup(provider).catch(err => {
+      console.error('Google sign-in error:', err);
+      let msg = 'Sign-in failed. Please try again.';
+      if (err.code === 'auth/popup-closed-by-user') msg = 'Sign-in cancelled.';
+      else if (err.code === 'auth/popup-blocked') msg = 'Popup blocked — please allow popups for this site and try again.';
+      else if (err.code === 'auth/unauthorized-domain') msg = 'This website is not yet authorized for sign-in. Add it under Firebase Console > Authentication > Settings > Authorized domains.';
+      else if (err.code === 'auth/api-key-not-valid' || err.code === 'auth/invalid-api-key') msg = 'Sign-in is not configured yet (missing Firebase apiKey).';
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+    }).finally(() => {
+      loadingBox.style.display = 'none';
+      signInBtn.style.display = 'flex';
+    });
+  };
+
+  badge.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('show');
+  });
+  document.addEventListener('click', () => menu.classList.remove('show'));
+
+  signOutBtn.onclick = (e) => {
+    e.stopPropagation();
+    auth.signOut();
+  };
+}
+</script></body>
+</html>
