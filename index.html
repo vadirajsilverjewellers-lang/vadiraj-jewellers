@@ -1300,6 +1300,22 @@ function initStrictPreload() {
     return result;
   };
 
+  const loadCatalogFast = async () => {
+    for (const path of ['catalog', 'catalogue', 'catalogue_items', 'products']) {
+      try {
+        const snap = await db.ref(path).orderByKey().limitToLast(10).once('value');
+        const value = snap.val();
+        const normalized = normalizeCatalogValue(value);
+        if (Object.keys(normalized).length) {
+          rawCatalogData = normalized;
+          renderFilteredCatalog();
+          return { path, value: normalized };
+        }
+      } catch (e) { /* try next path */ }
+    }
+    return null;
+  };
+
   const loadCatalog = async () => {
     const result = await readFirstAvailable(['catalog','catalogue','catalogue_items','products']);
     rawCatalogData = result.value || {};
@@ -1311,14 +1327,16 @@ function initStrictPreload() {
   };
 
   loadLocalDataFallback();
-  Promise.allSettled([loadRates(), loadCatalog()]).then(results => {
+  Promise.allSettled([loadRates(), loadCatalogFast()]).then(results => {
     if (results[0].status === 'rejected') console.error('Rates load error:', results[0].reason);
-    if (results[1].status === 'rejected') {
-      console.error('Catalogue load error:', results[1].reason);
-      if (!rawCatalogData || Object.keys(rawCatalogData).length === 0) renderCatalogLoadError(results[1].reason);
-    }
     calculateCost();
     dismissLoader(true);
+  });
+  // Fetch the full catalogue in the background without blocking app startup —
+  // large embedded photos can make this take a while on slower connections.
+  loadCatalog().catch(err => {
+    console.error('Full catalogue load error:', err);
+    if (!rawCatalogData || Object.keys(rawCatalogData).length === 0) renderCatalogLoadError(err);
   });
 
   ['catalog','catalogue','catalogue_items','products'].forEach(path => {
@@ -1465,35 +1483,40 @@ function renderFilteredCatalog() {
   let purityFilter = document.getElementById('catalogPurityFilter').value;
   let sortFilter = document.getElementById('catalogSortFilter').value;
   let itemsArray = Object.keys(rawCatalogData).map(key => {
-    let item = rawCatalogData[key];
-    if (!item || typeof item !== 'object') return null;
-    let purity = item.purity || '22K';
-    let weight = parseFloat(item.weight) || 0;
-    let wastage = parseFloat(item.wastage) || 8;
-    let making = parseFloat(item.making) || 250;
-    let baseRate10g = 0;
-    if (purity === 'Silver') {
-      baseRate10g = globalRates['silver_1kg'] / 100;
-    } else if (purity === '925 Silver') {
-      baseRate10g = globalRates['silver_925_1kg'] / 100;
-    } else {
-      baseRate10g = globalRates['24k_10g'];
-      if (purity === '22K') baseRate10g = baseRate10g * (22 / 24);
-      if (purity === '20K') baseRate10g = baseRate10g * (20 / 24);
-      if (purity === '18K') baseRate10g = baseRate10g * (18 / 24);
+    try {
+      let item = rawCatalogData[key];
+      if (!item || typeof item !== 'object') return null;
+      let purity = item.purity || '22K';
+      let weight = parseFloat(item.weight) || 0;
+      let wastage = parseFloat(item.wastage) || 8;
+      let making = parseFloat(item.making) || 250;
+      let baseRate10g = 0;
+      if (purity === 'Silver') {
+        baseRate10g = globalRates['silver_1kg'] / 100;
+      } else if (purity === '925 Silver') {
+        baseRate10g = globalRates['silver_925_1kg'] / 100;
+      } else {
+        baseRate10g = globalRates['24k_10g'];
+        if (purity === '22K') baseRate10g = baseRate10g * (22 / 24);
+        if (purity === '20K') baseRate10g = baseRate10g * (20 / 24);
+        if (purity === '18K') baseRate10g = baseRate10g * (18 / 24);
+      }
+      let ratePerGram = baseRate10g / 10;
+      let baseTotal = item.costType === 'flat' ? (parseFloat(item.flatPrice) || 0) : Math.round((weight * ratePerGram) * (1 + wastage / 100) + (weight * making));
+      let calculatedPrice = Math.round(baseTotal * 1.03) || 0;
+      let images = [];
+      if (Array.isArray(item.media) && item.media.length > 0) {
+        images = item.media.map(m => (typeof m === 'string' ? m : (m && m.url))).filter(Boolean);
+      } else if (Array.isArray(item.images) && item.images.length > 0) {
+        images = item.images.map(i => (typeof i === 'string' ? i : (i && i.url))).filter(Boolean);
+      } else if (item.image) {
+        images = [item.image];
+      }
+      return { key, ...item, images, calculatedPrice, purity };
+    } catch (itemErr) {
+      console.error('Catalog item skipped due to bad data (key: ' + key + '):', itemErr);
+      return null;
     }
-    let ratePerGram = baseRate10g / 10;
-    let baseTotal = item.costType === 'flat' ? (parseFloat(item.flatPrice) || 0) : Math.round((weight * ratePerGram) * (1 + wastage / 100) + (weight * making));
-    let calculatedPrice = Math.round(baseTotal * 1.03);
-    let images = [];
-    if (Array.isArray(item.media) && item.media.length > 0) {
-      images = item.media.map(m => (typeof m === 'string' ? m : m.url));
-    } else if (Array.isArray(item.images) && item.images.length > 0) {
-      images = item.images.map(i => (typeof i === 'string' ? i : i.url));
-    } else if (item.image) {
-      images = [item.image];
-    }
-    return { key, ...item, images, calculatedPrice, purity };
   }).filter(Boolean);
   if (searchQuery) itemsArray = itemsArray.filter(i => (i.title || '').toLowerCase().includes(searchQuery) || (i.desc || '').toLowerCase().includes(searchQuery));
   if (purityFilter) itemsArray = itemsArray.filter(i => i.purity === purityFilter);
@@ -1504,8 +1527,11 @@ function renderFilteredCatalog() {
     container.innerHTML = '<div style="font-size: 11px; color: var(--muted); text-align: center; padding: 20px;">No matching jewellery found.</div>';
     return;
   }
+  let totalInDb = Object.keys(rawCatalogData).length;
+  let countNoticeHtml = itemsArray.length < totalInDb ? `<div style="font-size:10px;color:var(--muted);text-align:center;padding:4px 0 10px;">Showing ${itemsArray.length} of ${totalInDb} items — some items were skipped due to invalid data.</div>` : '';
   let html = '';
   itemsArray.forEach(item => {
+   try {
     let subtitle = item.costType === 'flat' ? `Flat Price (Incl. 3% GST): ₹${item.calculatedPrice.toLocaleString('en-IN')}` : `${item.purity} | ${item.weight}g (Incl. 3% GST)`;
     let carouselId = 'carousel_' + item.key;
     let slidesHtml = '', dotsHtml = '';
@@ -1545,8 +1571,11 @@ function renderFilteredCatalog() {
         </div>
       </div>
     `;
+   } catch (renderErr) {
+     console.error('Catalog item failed to render (key: ' + (item && item.key) + '):', renderErr);
+   }
   });
-  container.innerHTML = html;
+  container.innerHTML = countNoticeHtml + html;
   setTimeout(updateVideoPlaybackStates, 100);
 }
 document.getElementById('catalogSearchInput').oninput = renderFilteredCatalog;
@@ -2602,6 +2631,9 @@ function initGoogleSignIn() {
         badgeImg.style.display = 'none';
         badgeFallback.style.display = 'flex';
         badgeFallback.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+      }
+      if ((!rawCatalogData || Object.keys(rawCatalogData).length === 0) && typeof window.retryCatalogueLoad === 'function') {
+        window.retryCatalogueLoad();
       }
     } else {
       gate.classList.add('show');
